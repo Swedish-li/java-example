@@ -9,7 +9,8 @@ import com.lrs.dao.PeopleDao;
 import com.lrs.model.People;
 @Repository
 public class PeopleDaoImpl implements PeopleDao {
-	@Resource(name = "mysqlbSession")
+	//@Resource(name = "mysqlbSession")
+	@Resource
 	SqlSession sqlSession;
 
 	@Override

@@ -4,37 +4,35 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
+import com.lrs.dao.TemplateDao;
+import com.lrs.model.Template;
+
 import freemarker.cache.TemplateLoader;
 
+@Component
 public class DatabaseTemplateloader implements TemplateLoader {
-	private long lastModified;
-	{
-		lastModified = System.currentTimeMillis();
-	}
-
-	/**
-	 * 当修改模板信息时需要修改更新模板最后更新时间
-	 * 
-	 * @param lastModified
-	 */
-	public void setLastModified(long lastModified) {
-		this.lastModified = lastModified;
-	}
+	@Resource
+	TemplateDao templateDao;
 
 	@Override
 	public Object findTemplateSource(String name) throws IOException {
-		// TODO 从数据库中获取模板
-		return null;
+		int index = name.indexOf('_');
+		String[] args = { name.substring(0, index), name.substring(index + 1) };
+		return templateDao.queryByKey(args[0], args[1]);
 	}
 
 	@Override
 	public long getLastModified(Object templateSource) {
-		return lastModified;
+		return -1L;
 	}
 
 	@Override
 	public Reader getReader(Object templateSource, String encoding) throws IOException {
-		return new StringReader("");
+		return new StringReader(((Template) templateSource).getTemplate());
 	}
 
 	@Override
