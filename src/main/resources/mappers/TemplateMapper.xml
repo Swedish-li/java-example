@@ -5,7 +5,7 @@
 	<select id="queryByKey" resultType="Template">
 		SELECT
 			id,status_key,template,last_modified,lang
-		FROM 
+		FROM
 			t_template
 		WHERE
 			status_key=#{key} AND lang=#{lang}
