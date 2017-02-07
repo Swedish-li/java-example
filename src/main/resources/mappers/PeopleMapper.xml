@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lrs.dao.PeopleDao">
+	<sql id="columnSql">
+		id,last_name,first_name,dob,gender
+	</sql>
+	<insert id="save" parameterType="People">
+		INSERT INTO people(
+		<include refid="columnSql" />
+		)
+		VALUES(#{id},#{lastName},#{firstName},#{dob},#{gender})
+	</insert>
+
+</mapper>
