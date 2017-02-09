@@ -27,7 +27,8 @@ public class DatabaseTemplateloader implements TemplateLoader {
 
 	@Override
 	public long getLastModified(Object templateSource) {
-		return -1L;
+		return ((Template) templateSource).getLastModified().getTime();
+		//return 1;
 	}
 
 	@Override
