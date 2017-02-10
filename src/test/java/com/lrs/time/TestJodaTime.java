@@ -2,7 +2,6 @@ package com.lrs.time;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -60,13 +59,13 @@ public class TestJodaTime {
 		LocalDate now = new LocalDate();
 		LocalDate electionDate = now.monthOfYear()
 				// 设置月份
-				.setCopy(11)
+				.setCopy(10)
 				//
 				.dayOfMonth().withMaximumValue()
 				// 加6天
 				.plusDays(6).dayOfWeek()
-				// Monday 不存在
-				.setCopy("Monday").plusDays(1);
+				// Monday 不存在 1,周一
+				.setCopy("1").plusDays(1);
 		print(electionDate);
 	}
 
@@ -77,8 +76,8 @@ public class TestJodaTime {
 		print(dateTime.toString("MM/dd/yyyy hh:mm:ss.SSSa"));
 		//10-02-2017 14:47:41
 		print(dateTime.toString("dd-MM-yyyy HH:mm:ss"));
-		//星期五 10 二月, 2017 14:47:41下午
-		print(dateTime.toString("EEEE dd MMMM, yyyy HH:mm:ssa"));
+		//星期五 10 二月, 2017 14:47:41 下午
+		print(dateTime.toString("EEEE dd MMMM, yyyy HH:mm:ss a"));
 		//02/10/2017 14:47 Asia/Shanghai
 		print(dateTime.toString("MM/dd/yyyy HH:mm ZZZZ"));
 		//02/10/2017 14:47 +0800
