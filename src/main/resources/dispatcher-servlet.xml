@@ -37,5 +37,20 @@
 	</bean>
 	<!-- Excel导出视图  -->
 	<bean name="excelView" class="com.lrs.common.view.ExcelView"></bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+       <property name="useCodeAsDefaultMessage" value="false"/> 
+       <property name="defaultEncoding" value="UTF-8"/> 
+       <property name="fallbackToSystemLocale" value="true"/> 
+       <property name="basenames"> 
+           <list> 
+               <value>classpath:bundle/messages</value>    
+           </list> 
+       </property> 
+   </bean>
+   <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> 
+       <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/> 
+       <property name="validationMessageSource" ref="messageSource"/> 
+   </bean>
 
 </beans>

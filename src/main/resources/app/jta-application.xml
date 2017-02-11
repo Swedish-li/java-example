@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:property-placeholder location="classpath*:config/*.properties" />
+
+	<context:component-scan base-package="com.lrs" />
+	<!-- 支持 @Transactional 标记 -->
+	<tx:annotation-driven transaction-manager="springJTATransactionManager"
+		proxy-target-class="true" />
+
+	<!--公有数据库连接池 -->
+	<bean id="abstractXADataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close" abstract="true">
+		<property name="xaDataSourceClassName"
+			value="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" />
+		<property name="poolSize" value="10" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxPoolSize" value="30" />
+		<!--获取连接失败重新获等待最大时间，在这个时间内如果有可用连接，将返回 -->
+		<property name="borrowConnectionTimeout" value="60" />
+		<!--最大获取数据时间，如果不设置这个值，Atomikos使用默认的5分钟， 那么在处理大批量数据读取的时候，一旦超过5分钟，就会抛出类似 
+			Resultset is close 的错误. -->
+		<property name="reapTimeout" value="20000" />
+		<!-- 最大空闲时间 -->
+		<property name="maxIdleTime" value="60" />
+		<!--连接回收时间 -->
+		<property name="maintenanceInterval" value="60" />
+		<!--java数据库连接池，最大可等待获取datasouce的时间 -->
+		<property name="loginTimeout" value="60" />
+		<property name="testQuery">
+			<value>select 1</value>
+		</property>
+	</bean>
+
+	<!-- 客户数据库 -->
+	<bean id="mysqlA" parent="abstractXADataSource">
+		<property name="uniqueResourceName" value="mysqlA" />
+		<property name="xaProperties">
+			<props>
+				<prop key="URL">${jdbc.A.url}</prop>
+				<prop key="user">${jdbc.A.username}</prop>
+				<prop key="password">${jdbc.A.password}</prop>
+				<prop key="pinGlobalTxToPhysicalConnection">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 系统数据库 -->
+	<bean id="mysqlB" parent="abstractXADataSource">
+		<property name="uniqueResourceName" value="mysqlB" />
+		<property name="xaProperties">
+			<props>
+				<prop key="URL">${jdbc.B.url}</prop>
+				<prop key="user">${jdbc.B.username}</prop>
+				<prop key="password">${jdbc.B.password}</prop>
+				<prop key="pinGlobalTxToPhysicalConnection">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 公有SessionFactory配置 -->
+	<bean id="baseSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" abstract="true">		
+		<property name="typeAliasesPackage" value="com.lrs.model" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mappers/*.xml" />
+	</bean>
+
+	<!-- sessionFactory配置 -->
+	<!-- customer sessionFactory -->
+	<bean id="cusSessionFactory" parent="baseSessionFactory">
+		<property name="dataSource" ref="mysqlA" />
+	</bean>
+	<!-- system sessionFactory -->
+	<bean id="sysSessionFactory" parent="baseSessionFactory">
+		<property name="dataSource" ref="mysqlB" />
+	</bean>
+
+	<!-- atomikos事务管理器 -->
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<!-- 调用终止时，强制关闭 -->
+		<property name="forceShutdown">
+			<value>true</value>
+		</property>
+	</bean>
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+		<!-- 超时时间（秒） -->
+		<property name="transactionTimeout">
+			<value>2000</value>
+		</property>
+	</bean>
+
+	<!-- spring 事务管理器 -->
+	<bean id="springJTATransactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
+	</bean>
+	
+	<bean id="mysqlaSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="cusSessionFactory" />
+	</bean>
+	
+	<bean id="mysqlbSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sysSessionFactory" />
+	</bean>
+</beans>
