@@ -44,7 +44,8 @@
        <property name="fallbackToSystemLocale" value="true"/> 
        <property name="basenames"> 
            <list> 
-               <value>classpath:bundle/messages</value>    
+               <value>classpath:bundle/messages</value>
+               <value>classpath:bundle/ValidationMessages</value>     
            </list> 
        </property> 
    </bean>
