@@ -10,8 +10,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 	<mvc:default-servlet-handler />
 	<context:component-scan base-package="com.lrs.controller" />
-	<mvc:annotation-driven />
-
+	
 	<!-- 视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="1" />
@@ -38,14 +37,14 @@
 	<!-- Excel导出视图  -->
 	<bean name="excelView" class="com.lrs.common.view.ExcelView"></bean>
 	
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
        <property name="useCodeAsDefaultMessage" value="false"/> 
        <property name="defaultEncoding" value="UTF-8"/> 
        <property name="fallbackToSystemLocale" value="true"/> 
        <property name="basenames"> 
            <list> 
                <value>classpath:bundle/messages</value>
-               <value>classpath:bundle/ValidationMessages</value>     
+               <value>classpath:org/hibernate/validator/ValidationMessages</value>     
            </list> 
        </property> 
    </bean>
@@ -53,5 +52,5 @@
        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/> 
        <property name="validationMessageSource" ref="messageSource"/> 
    </bean>
-
+	<mvc:annotation-driven validator="validator" />
 </beans>

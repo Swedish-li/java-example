@@ -8,7 +8,7 @@
 
 		<atomikos.version>3.9.3</atomikos.version>
 		<junit.version>4.12</junit.version>
-		<spring.version>4.3.4.RELEASE</spring.version>
+		<spring.version>4.3.6.RELEASE</spring.version>
 		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis-spring.version>1.2.3</mybatis-spring.version>
 		<mybatis.paginator.version>1.2.15</mybatis.paginator.version>
@@ -25,6 +25,15 @@
 		<poi.version>3.15</poi.version>
 		<dbcp2.version>2.1.1</dbcp2.version>
 	</properties>
+
+	<repositories>
+		<!-- 远程库没有的jar包 -->
+		<repository>
+			<id>taocodeReleases</id> 
+     <name>taocode nexus</name> 
+     <url>http://mvnrepo.code.taobao.org/nexus/content/repositories/releases/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
