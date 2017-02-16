@@ -29,9 +29,9 @@
 	<repositories>
 		<!-- 远程库没有的jar包 -->
 		<repository>
-			<id>taocodeReleases</id> 
-     <name>taocode nexus</name> 
-     <url>http://mvnrepo.code.taobao.org/nexus/content/repositories/releases/</url>
+			<id>taocodeReleases</id>
+			<name>taocode nexus</name>
+			<url>http://mvnrepo.code.taobao.org/nexus/content/repositories/releases/</url>
 		</repository>
 	</repositories>
 	<dependencies>
