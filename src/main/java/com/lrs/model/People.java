@@ -9,8 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
 @Table(name = "people")
+@Getter
+@Setter
+@ToString
 public class People {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,40 +29,5 @@ public class People {
 	private Date dob;
 	//m,f
 	private String gender;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public Date getDob() {
-		return dob;
-	}
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	@Override
-	public String toString() {
-		return "People [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", dob=" + dob + ", gender="
-				+ gender + "]";
-	}
 	
 }
