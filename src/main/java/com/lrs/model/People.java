@@ -9,15 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "people")
-@Getter
-@Setter
-@ToString
+@Data
+@Accessors(chain = true)
 public class People {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +25,7 @@ public class People {
 	@Column(name = "first_name")
 	private String firstName;
 	private Date dob;
-	//m,f
+	// m,f
 	private String gender;
-	
+
 }

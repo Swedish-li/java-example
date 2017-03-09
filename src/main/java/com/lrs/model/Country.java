@@ -6,16 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "country")
-@Getter
-@Setter
-@ToString
+//get.set,toString,equal,canEqual,hashCode
+@Data
+//链式调用
 @Accessors(chain = true)
 public class Country {
 	@Id

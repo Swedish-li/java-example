@@ -2,9 +2,7 @@ package com.lrs.model;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
@@ -13,9 +11,7 @@ import lombok.experimental.Accessors;
  * @author Swedish-li
  *
  */
-@Getter
-@Setter
-@ToString
+@Data
 @Accessors(chain = true)
 public class Template {
 	private Integer id;

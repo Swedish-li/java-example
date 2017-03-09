@@ -15,7 +15,6 @@ public class TemplateDaoImpl implements TemplateDao {
 
 	@Override
 	public Template queryByKey(String key, String lang) {
-
 		return sqlSession.getMapper(TemplateDao.class).queryByKey(key, lang);
 	}
 
