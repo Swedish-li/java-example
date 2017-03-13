@@ -39,7 +39,7 @@
 		scope="prototype">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-
+	
 	<!-- transaction support -->
 	<!-- PlatformTransactionMnager -->
 	<bean id="txManager"

@@ -2,6 +2,8 @@ package com.lrs.regex;
 
 import static org.junit.Assert.*;
 
+import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,12 +12,12 @@ import org.junit.Test;
 /**
  * java正则表达式简单示例
  * 
- * Pattern:正则规范 Matcher:执行规范，使用Pattern规定好的规则进行校验 
- * 常用正则规则： \d : 数字 \D : 非数字 
- * \w :字母，数字，下划线 \W : 非字母数字下划线
+ * Pattern:正则规范 Matcher:执行规范，使用Pattern规定好的规则进行校验 常用正则规则： \d : 数字 \D : 非数字 \w
+ * :字母，数字，下划线 \W : 非字母数字下划线
  * 
  * 
  * junit中的断言和注解 ：http://blog.csdn.net/u014042146/article/details/49465917
+ * 
  * @author liruishi
  *
  */
@@ -79,9 +81,21 @@ public class SimpleRegexExample {
 		Matcher matcher = pattern.matcher(str);
 		String s = matcher.replaceAll("---");
 		assertEquals(s, "aaa---bbb---ccc");
-		
+
 	}
-	
-	//直接使用字符String类中提供的正则支持
-	//split,replaceAll,matches,
+
+	// 直接使用字符String类中提供的正则支持
+	// split,replaceAll,matches,
+	/**
+	 * 系统配置
+	 * user.country:CN
+	 * java.vm.version:24.45-b08
+	 */
+	@Test
+	public void testSystemProperties() {
+		Properties properties = System.getProperties();
+		for (Entry<Object, Object> entry : properties.entrySet()) {
+			System.out.println(entry.getKey() + "=>" + entry.getValue());
+		}
+	}
 }
