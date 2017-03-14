@@ -53,7 +53,9 @@ ${int?int}
 	<#macro m2>
 		m2 ： ${ex}
 	</#macro>>
-	
+	<#noescape>
+		在此之间关闭转义：${ex}
+	</#noescape>
 	${ex}
 	<@m1 />
 </#escape>
