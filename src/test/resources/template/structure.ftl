@@ -5,6 +5,28 @@
 	FTL tags ： FTL标签，类似HTML标签
 	Comments注释 ：会被Freemarker忽略
 -->
+<#assign str = "Hello World!">
+<#-- substring -->
+${str?substring(0)}
+${str?substring(3)}
+${str?substring(1,3)}
+
+<#-- javascript 语言规则的字符串转义 js_string-->
+<#assign jsStr="Big Joe's \" right hand\"\n">
+${jsStr?js_string}
+
+<#-- Json规则的字符串转义 -->
+${jsStr?json_string}
+
+
+<#-- rtf 富文本 -->
+${"\\{ this example text }"?rtf}
+${"\\{ this example text }"}
+<#-- 对url上的参数进行转义 -->
+<#setting url_escaping_charset="UTF-8">
+<#assign url="/test?x=数字 /带空格，汉字，标点!">
+${url}
+${url?url}
 
 
 ${html?html}

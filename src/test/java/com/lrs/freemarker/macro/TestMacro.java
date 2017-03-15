@@ -48,4 +48,10 @@ public class TestMacro extends TestBase {
 
 		process(root, functionFtlName);
 	}
+	
+	private final static String htmlTemlateFtl = "htmlTemplate.ftl";
+	@Test
+	public void testHtml() {
+		process(getRoot(), htmlTemlateFtl);
+	}
 }

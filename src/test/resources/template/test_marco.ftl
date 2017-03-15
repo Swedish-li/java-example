@@ -2,7 +2,7 @@
 	<font size="+2">Hello Jackie</font>
 	<#include "inc.ftl">
 </#macro>
-
+<#-- 调用名称，参数 -->
 <#macro greet1 person>
 	<font size="+2"> Hello ${person}</font>
 </#macro>
