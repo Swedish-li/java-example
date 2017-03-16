@@ -1,7 +1,13 @@
 package com.lrs.regex;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -87,9 +93,7 @@ public class SimpleRegexExample {
 	// 直接使用字符String类中提供的正则支持
 	// split,replaceAll,matches,
 	/**
-	 * 系统配置
-	 * user.country:CN
-	 * java.vm.version:24.45-b08
+	 * 系统配置 user.country:CN java.vm.version:24.45-b08
 	 */
 	@Test
 	public void testSystemProperties() {
@@ -97,5 +101,70 @@ public class SimpleRegexExample {
 		for (Entry<Object, Object> entry : properties.entrySet()) {
 			System.out.println(entry.getKey() + "=>" + entry.getValue());
 		}
+	}
+
+	/**
+	 * 解析注解
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws NoSuchMethodException
+	 */
+	@Test
+	public void parseAnnootation()
+			throws ClassNotFoundException, NoSuchFieldException, SecurityException, NoSuchMethodException {
+		Class<?> clazz = Class.forName("com.lrs.regex.SimpleRegexExample$App");
+		MethodInfo methodInfo = clazz.getAnnotation(MethodInfo.class);
+		// 类上的注解
+		if (methodInfo != null) {
+			String val = methodInfo.value();
+			System.out.println(val);
+			assertEquals("App-info", val);
+		}
+		// 属性上的注解
+		Field field = clazz.getDeclaredField("name");
+		field.setAccessible(true);
+		MethodInfo fieldMethodInfo = field.getAnnotation(MethodInfo.class);
+		if (fieldMethodInfo != null) {
+			String val = fieldMethodInfo.value();
+			System.out.println(val);
+			assertEquals("name-info", val);
+		}
+		// 构造器上的注解
+		Constructor<?> constructor = clazz.getConstructor();
+		MethodInfo csMethodInfo = constructor.getAnnotation(MethodInfo.class);
+		if (csMethodInfo != null) {
+			String val = csMethodInfo.value();
+			System.out.println(val);
+			assertEquals("constructor-info", val);
+		}
+		// 方法上的注解
+		Method method = clazz.getMethod("getName");
+		MethodInfo mtMethodInfo = method.getAnnotation(MethodInfo.class);
+		if (mtMethodInfo!=null) {
+			String val = mtMethodInfo.value();
+			System.out.println(val);
+			assertEquals("get-name-info", val);
+		}
+	}
+
+	// 静态内部类
+	// 在类上的注解
+	@MethodInfo("App-info")
+	public static class App {
+		@MethodInfo("constructor-info")
+		public App() {
+
+		}
+
+		@MethodInfo("name-info")
+		private String name;
+
+		@MethodInfo("get-name-info")
+		public String getName() {
+			return name;
+		}
+
 	}
 }
