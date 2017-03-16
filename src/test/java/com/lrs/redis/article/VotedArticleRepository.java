@@ -34,6 +34,9 @@ public class VotedArticleRepository {
 		String article = "article:" + articleId;
 
 		jedis.hmset(article, new HashMap<String, String>() {
+			
+			private static final long serialVersionUID = 1L;
+
 			{
 				put("title", title);
 				put("link", link);
