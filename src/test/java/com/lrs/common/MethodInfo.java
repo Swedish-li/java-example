@@ -1,4 +1,4 @@
-package com.lrs.regex;
+package com.lrs.common;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;
