@@ -8,7 +8,7 @@ import org.apache.commons.lang3.time.StopWatch;
 
 /**
  * 排序算法学习
- * 
+ * 算法（アルゴリズム，Algorithm）
  * 参考文章：https://github.com/damonare/Sorts
  * 
  * @author Swedish-li
