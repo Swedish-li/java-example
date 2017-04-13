@@ -32,7 +32,7 @@ public class MergeSort extends BaseSort {
 		int end1 = mid;
 		int start2 = mid + 1;
 		int end2 = end;
-		// [start,mid],[k,end]
+		// [start,mid],[mid+1,end],二分
 		sortRecursive(arr, rs, start1, end1);
 		sortRecursive(arr, rs, start2, end2);
 		// 将排序完成的数组合并到rs中
