@@ -1,0 +1,37 @@
+{
+ "status" : "SUCCESS",
+ "code" : 1,
+ "msg" : "操作成功！",
+ "data" : {
+  "current" : 1,
+  "pageSize" : 10,
+  "totalRecord" : 39,
+  "totalPage" : 4,
+  "pre" : null,
+  "next" : null,
+  "list" : [{
+    "rowId" : "0243432a6ad211e697c200163e001b38",
+    "brandId" : "1",
+    "couponId" : "ac0eaa825fe841f9ad5b9f7af5aca252",
+    "couponCode" : "24696090456490197",
+    "custId" : "1",
+    "activityId" : "1ffddcb9036d4f47a4b6e4c13814a58d",
+    "batch" : "277231",
+    "startTime" : "2016-08-25 18:30:51",
+    "endTime" : "2016-08-31 18:30:51",
+    "status" : 0,
+    "createTime" : "2016-08-25 22:41:29",
+    "couponName" : "2000元现金券",
+    "typeId" : null,
+    "itemName" : "现金劵"
+   }
+  ],
+  "sql" : null,
+  "start" : 0
+ },
+ "requestId" : "2017-01-239b56b9f1-2b91-40a9-8ffa-bbb18c54974a",
+ "receivetime" : "2017-01-23 15:07:23:936",
+ "backtime" : "2017-01-23 15:07:23:961",
+ "syscode" : null,
+ "itfcode" : null
+}
