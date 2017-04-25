@@ -1,12 +1,15 @@
-package com.lrs.netty;
+package com.lrs.netty.nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.util.Iterator;
 
 public class NioEchoServer {
@@ -37,7 +40,7 @@ public class NioEchoServer {
 			Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
 
 			while (keyIterator.hasNext()) {
-				
+
 				SelectionKey key = keyIterator.next();
 
 				if (key.isAcceptable()) {
@@ -56,6 +59,8 @@ public class NioEchoServer {
 					} else if (bytesRead > 0) {
 						key.interestOps(SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 						System.out.println("Get data length:" + bytesRead);
+						String str = byteBufferToString(buffer);
+						System.out.println(str);
 					}
 				}
 
@@ -69,10 +74,28 @@ public class NioEchoServer {
 					}
 					buffer.compact();
 				}
-				
+
 				keyIterator.remove();
 			}
 
+		}
+	}
+	/**
+	 * 将ByteBuffer转换为字符串
+	 * 
+	 * @param buffer
+	 * @return
+	 */
+	private static String byteBufferToString(ByteBuffer buffer) {
+		CharBuffer charBuffer = null;
+		try {
+			Charset charset = Charset.forName("UTF-8");
+			CharsetDecoder decoder = charset.newDecoder();
+			buffer.flip();
+			charBuffer = decoder.decode(buffer);
+			return charBuffer.toString();
+		} catch (Exception ex) {
+			throw new RuntimeException("ByteBuffer数据读取失败！",ex);
 		}
 	}
 }
