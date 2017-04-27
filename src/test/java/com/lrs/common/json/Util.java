@@ -15,9 +15,10 @@ import org.junit.Test;
  */
 public class Util {
 	private final static String BASE_PATH = Util.class.getResource("/").getPath() + File.separator + "json";
-	
+
 	/**
 	 * 获取文件中的JSON字符串
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -31,11 +32,12 @@ public class Util {
 			while ((str = bufferedReader.readLine()) != null) {
 				stringBuilder.append(str);
 			}
-			
+
 			return stringBuilder.toString();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} finally {
+
 			if (bufferedReader != null) {
 				try {
 					bufferedReader.close();
@@ -45,7 +47,6 @@ public class Util {
 			}
 		}
 
-		
 	}
 
 	@Test

@@ -1,6 +1,9 @@
 package com.lrs.common.json;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +32,7 @@ public class TestJson {
 		JSONObject data = (JSONObject) jsonObject.getJSONObject("data");
 
 		JSONArray list = data.getJSONArray("list");
-		
+
 		// 不可以这样调用 org.json.JSONException: JSONObject["list"] not a string.
 		// String strArr = data.getString("list");
 		// System.out.println("str arr:"+ strArr);
@@ -61,6 +64,34 @@ public class TestJson {
 		JSONObject object = new JSONObject(map);
 
 		System.out.println(object.toString());
+	}
+
+	@Test
+	public void testGithubRestful() throws ParseException {
+		String res = Util.getJson("github");
+		JSONArray jsonArray = new JSONArray(res);
+		JSONObject jsonObject = jsonArray.getJSONObject(0);
+		// YYYY-MM-DDTHH:MM:SSZ iso 8601
+		// yyyy-MM-dd'T'HH:mm:ssZ Java
+		String dateStr = jsonObject.getString("updated_at");
+		// 2017-03-29T21:12:22Z
+		System.out.println(parse(dateStr));
+	}
+	/**
+	 * DateTimeFormat.ISO不安全兼容ISO 8601
+	 * 
+	 * http://blog.csdn.net/alpslzy/article/details/56293789
+	 * 
+	 * @param str
+	 * @return
+	 */
+	private Date parse(String str) {
+		Calendar canlendar = javax.xml.bind.DatatypeConverter.parseDateTime(str);
+		Date dt = canlendar.getTime();
+		String formatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(dt);
+		// 2017-03-30T05:12:22+0800
+		System.out.println(formatted);
+		return dt;
 	}
 
 }

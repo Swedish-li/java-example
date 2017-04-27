@@ -10,6 +10,7 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 public class NioEchoServer {
@@ -29,7 +30,7 @@ public class NioEchoServer {
 
 		// 将channel注册到 selector
 		serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-
+		// 循环监听连接请求
 		while (true) {
 			// 阻塞等待 channel I/O 可以操作
 			if (selector.select(TIMEOUT) == 0) {
@@ -89,7 +90,7 @@ public class NioEchoServer {
 	private static String byteBufferToString(ByteBuffer buffer) {
 		CharBuffer charBuffer = null;
 		try {
-			Charset charset = Charset.forName("UTF-8");
+			Charset charset = StandardCharsets.UTF_8;
 			CharsetDecoder decoder = charset.newDecoder();
 			buffer.flip();
 			charBuffer = decoder.decode(buffer);
