@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lrs.dao.BrandDao">
+	<resultMap type="Brand" id="brandMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="description" property="description"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="sort" property="sort"/>
+		<result column="is_display" property="isDisplay"/>
+	</resultMap>
+	
+	<select id="selectBrandListByQuery" resultMap="brandMap" parameterType="BrandQuery">
+		SELECT
+			id,name,description,img_url,sort,is_display
+		FROM
+			brand
+		<where>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
+			<if test="isDisplay != null">
+				AND is_display = #{isDisplay}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="Long[]">
+		DELETE FROM brand
+			<where>
+				id IN
+				<foreach collection="array" item="id" open="(" close=")" separator=",">
+					#{id}
+				</foreach>
+			</where>
+	</delete>
+</mapper>

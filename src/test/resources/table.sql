@@ -27,3 +27,16 @@ CREATE TABLE `t_template` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
+CREATE TABLE `brand` (
+	/* bigint 10亿亿 */
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` VARCHAR(40) NOT NULL COMMENT '名称',
+  `description` VARCHAR(80) DEFAULT NULL COMMENT '描述',
+  `img_url` VARCHAR(80) DEFAULT NULL COMMENT '图片Url',
+  `web_site` VARCHAR(80) DEFAULT NULL COMMENT '品牌网址',
+  /* 10亿 */
+  `sort` INT(11) DEFAULT NULL COMMENT '排序:最大最排前',
+  /* -128到127 */
+  `is_display` TINYINT(1) DEFAULT NULL COMMENT '是否可见 1:可见 0:不可见',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
