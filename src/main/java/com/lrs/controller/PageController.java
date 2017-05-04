@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lrs.model.Brand;
+
 //   /views/warehouse/warehouse
 @Controller
 @RequestMapping("view")
@@ -39,11 +41,30 @@ public class PageController {
 	 * 
 	 * HTTP Status 400
 	 * 
+	 * StringHttpMessageConverter内部使用ISO-8859-1
+	 * 
 	 * @param start
 	 */
-	@RequestMapping("convert-int")
+	@RequestMapping(value = "convert-int")
 	@ResponseBody
 	public String toInt(int start) {
-		return "convert to test sucess!";
+		return "convert to test 上海!";
+	}
+	/**
+	 *  Json响应
+	 * @return
+	 */
+	@RequestMapping(value = "get-brand")
+	@ResponseBody
+	public Brand getBrand() {
+		Brand brand = new Brand()
+				.setId(5L)
+				.setName("test")
+				.setDescription("test desc")
+				.setImgUrl("imgUrl")
+				.setIsDisplay(1)
+				.setSort(10);
+
+		return brand;
 	}
 }

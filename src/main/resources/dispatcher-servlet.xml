@@ -8,18 +8,46 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
-	<mvc:default-servlet-handler />
+
+
+	<!-- handler 所在包扫描 -->
 	<context:component-scan base-package="com.lrs.controller" />
-	
-	<!-- 视图解析器 -->
+
+	<!-- 视图解析器：根据Handler响应的ModelAndView选择合适的view -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order" value="1" />
+		<property name="order" value="1" /> <!-- 值越小优先级越高 -->
 	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
+	</bean>
+
+	<bean id="stringHttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<bean class="org.springframework.http.MediaType">
+					<constructor-arg value="text" />
+					<constructor-arg value="plain" />
+					<constructor-arg value="UTF-8" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json</value>
+				<value>application/xml</value>
+				<value>text/html</value>
+				<value>text/plain</value>
+				<value>text/xml</value>
+			</list>
+		</property>
 	</bean>
 
 	<bean name="jaxb2MarshallingView"
@@ -34,23 +62,33 @@
 			</bean>
 		</constructor-arg>
 	</bean>
-	<!-- Excel导出视图  -->
+	<!-- Excel导出视图 -->
 	<bean name="excelView" class="com.lrs.common.view.ExcelView"></bean>
-	
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
-       <property name="useCodeAsDefaultMessage" value="false"/> 
-       <property name="defaultEncoding" value="UTF-8"/> 
-       <property name="fallbackToSystemLocale" value="true"/> 
-       <property name="basenames"> 
-           <list> 
-               <value>classpath:bundle/messages</value>
-               <value>classpath:org/hibernate/validator/ValidationMessages</value>     
-           </list> 
-       </property> 
-   </bean>
-   <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> 
-       <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/> 
-       <property name="validationMessageSource" ref="messageSource"/> 
-   </bean>
-	<mvc:annotation-driven validator="validator" />
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="useCodeAsDefaultMessage" value="false" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="fallbackToSystemLocale" value="true" />
+		<property name="basenames">
+			<list>
+				<value>classpath:bundle/messages</value>
+				<value>classpath:org/hibernate/validator/ValidationMessages</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	<mvc:annotation-driven validator="validator">
+		<mvc:message-converters>
+			<ref bean="stringHttpMessageConverter" />
+			<ref bean="jackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 静态资源处理 -->
+	<mvc:default-servlet-handler />
 </beans>

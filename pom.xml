@@ -4,24 +4,18 @@
 	<groupId>com.lrs</groupId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	
 	<properties>
-
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<atomikos.version>3.9.3</atomikos.version>
 		<junit.version>4.12</junit.version>
 		<spring.version>4.3.6.RELEASE</spring.version>
 		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis-spring.version>1.2.3</mybatis-spring.version>
-		<mybatis.paginator.version>1.2.15</mybatis.paginator.version>
 		<mysql.version>5.1.32</mysql.version>
 		<slf4j.version>1.6.4</slf4j.version>
-		<jackson-core.version>2.8.5</jackson-core.version>
-		<druid.version>1.0.15</druid.version>
-		<servlet-api.version>2.5</servlet-api.version>
-		<jsp-api.version>2.2</jsp-api.version>
-		<jstl.version>1.2</jstl.version>
 		<joda-time.version>2.9.7</joda-time.version>
 		<commons-lang3.version>3.3.2</commons-lang3.version>
-		<commons-io.version>1.3.2</commons-io.version>
 		<poi.version>3.15</poi.version>
 		<dbcp2.version>2.1.1</dbcp2.version>
 		<emoji-java.version>3.2.0</emoji-java.version>
@@ -70,13 +64,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
@@ -112,12 +99,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
@@ -133,10 +115,6 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
-
-		<!--web -->
-		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
-			<version>3.0</version> <scope>provided</scope> </dependency> -->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -197,7 +175,6 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -226,6 +203,39 @@
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>4.1.9.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.8.6</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- 单元测试  -->
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
