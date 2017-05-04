@@ -58,9 +58,10 @@ public class TestArrayList {
 		}
 		System.out.println(list);
 	}
+
 	// 显式使用迭代器
 	@Test
-	public void	 testRemove2() {
+	public void testRemove2() {
 		List<String> list = getSampleList();
 		Iterator<String> iterator = list.iterator();
 		while (iterator.hasNext()) {
@@ -71,6 +72,7 @@ public class TestArrayList {
 		}
 		System.out.println(list);
 	}
+
 	private List<String> getSampleList() {
 		List<String> list = new ArrayList<>();
 		list.add("a");

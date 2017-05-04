@@ -5,15 +5,17 @@ import org.junit.Test;
 
 import com.lrs.redis.TestRedisBase;
 
-public class TestArticleVoted extends TestRedisBase{
+public class TestArticleVoted extends TestRedisBase {
 	private VotedArticleRepository votedArticle;
+
 	@Before
-	public void testBefore(){
+	public void testBefore() {
 		votedArticle = new VotedArticleRepository();
 		votedArticle.setJedis(super.jedis);
 	}
+
 	@Test
-	public void testPostArticle(){
+	public void testPostArticle() {
 		votedArticle.postArticle("user01", "java is best", "link-to-article");
 	}
 }

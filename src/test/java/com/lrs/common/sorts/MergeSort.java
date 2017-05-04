@@ -3,8 +3,7 @@ package com.lrs.common.sorts;
 import org.junit.Test;
 
 /**
- * 归并排序
- * 分治法（Divide and Conquer）典型应用
+ * 归并排序 分治法（Divide and Conquer）典型应用
  * 
  * @author swedish-li
  *

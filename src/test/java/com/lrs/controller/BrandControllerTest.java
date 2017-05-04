@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
-
 /**
  * 集成测试
  * 
@@ -29,8 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
  */
 @WebAppConfiguration(value = "src/main/webapp")
 @ContextHierarchy({
-      @ContextConfiguration(name = "parent", locations = "classpath:applicationContext.xml"),
-      @ContextConfiguration(name = "child", locations = "classpath:dispatcher-servlet.xml")
+		@ContextConfiguration(name = "parent", locations = "classpath:applicationContext.xml"),
+		@ContextConfiguration(name = "child", locations = "classpath:dispatcher-servlet.xml")
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BrandControllerTest {
@@ -39,9 +38,9 @@ public class BrandControllerTest {
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 	@Resource
 	private WebApplicationContext webApplicationContext;
-	
+
 	private MockMvc mockMvc;
-	
+
 	@Before
 	public void setUp() {
 		mockMvc = webAppContextSetup(webApplicationContext).build();
@@ -50,11 +49,11 @@ public class BrandControllerTest {
 	@Test
 	public void testGetBrand() throws Exception {
 		mockMvc.perform(get("/brand/5"))
-		.andDo(print())
-		.andExpect(status().isOk())
-		.andExpect(content().contentType(APPLICATION_JSON_UTF8))
-		.andExpect(jsonPath("$.id").value(5))
-		.andExpect(jsonPath("$.name").value("菩媞"));
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$.id").value(5))
+				.andExpect(jsonPath("$.name").value("菩媞"));
 	}
 
 }

@@ -26,13 +26,13 @@ public class TestService {
 		test.setCountryname("测试国家");
 		test.setCountrycode("12345");
 		countryDao.save(test);
-		
+
 		People people = new People();
 		people.setFirstName("jack");
 		people.setLastName("li");
 		people.setDob(new Date());
 		people.setGender("m");
-		//int i = 1 / 0;
+		// int i = 1 / 0;
 		peopleDao.save(people);
 	}
 

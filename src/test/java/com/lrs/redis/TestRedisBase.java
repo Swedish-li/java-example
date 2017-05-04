@@ -12,8 +12,9 @@ public class TestRedisBase {
 	public void before() {
 		jedis = new Jedis("192.168.99.100", 32769);
 	}
+
 	@Test
-	public void simpleTest(){
+	public void simpleTest() {
 		jedis.set("key1", "value1");
 	}
 }

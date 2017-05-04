@@ -54,7 +54,7 @@ public class HeapSort extends BaseSort {
 	 * @param len 未排序的堆（数组）的长度
 	 */
 	private void maxHeapify(int index, int len) {
-		//获取当前节点的左右节点
+		// 获取当前节点的左右节点
 		int li = (index << 1) + 1; // 左子节点索引
 		int ri = li + 1; // 右子节点索引
 		int cMax = li; // 子节点值最大索引，默认左子节点。

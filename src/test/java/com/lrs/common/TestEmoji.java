@@ -48,27 +48,27 @@ public class TestEmoji {
 	public void testFitzpatrick() {
 		String str = "Here is a boy: \uD83D\uDC66\uD83C\uDFFF!";
 		println(str);
-		//parse to Alias
+		// parse to Alias
 		println(EmojiParser.parseToAliases(str));
 		println(EmojiParser.parseToAliases(str, FitzpatrickAction.PARSE));
-		
+
 		println(EmojiParser.parseToAliases(str, FitzpatrickAction.IGNORE));
 		println(EmojiParser.parseToAliases(str, FitzpatrickAction.REMOVE));
-		
-		
+
 	}
+
 	// 将Emoji转换为Html的表示方法
 	@Test
 	public void test2Html() {
 		String str = "An 😀awesome 😃string with a few 😉emojis!";
 		// 转换为十进制表示
 		println(EmojiParser.parseToHtmlDecimal(str));
-		
+
 		// 转换为十六进制表示
 		println(EmojiParser.parseToHtmlHexadecimal(str));
-		
+
 	}
-	
+
 	// 将Emoji从字符串中 移除
 	@Test
 	public void testRemoveEmoji() {
@@ -79,7 +79,7 @@ public class TestEmoji {
 		List<Emoji> exceptList = new ArrayList<>();
 		exceptList.add(EmojiManager.getForAlias("wink"));
 		println(EmojiParser.removeAllEmojisExcept(str, exceptList));
-		
+
 		// 移除集合中的Emoji
 		println(EmojiParser.removeEmojis(str, exceptList));
 	}

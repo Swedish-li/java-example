@@ -10,7 +10,7 @@ import com.lrs.model.Country;
 
 @Repository
 public class CountryDaoImpl implements CountryDao {
-	//@Resource(name = "mysqlaSession")
+	// @Resource(name = "mysqlaSession")
 	@Resource
 	SqlSession sqlSession;
 

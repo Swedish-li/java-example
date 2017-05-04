@@ -31,8 +31,8 @@ import org.slf4j.LoggerFactory;
 public class JvmArg {
 
 	private final static Logger logger = LoggerFactory.getLogger(JvmArg.class);
-	
-	//-XshowSettings:all
+
+	// -XshowSettings:all
 	@Test
 	public void testJvmArg() {
 		System.out.println("这是一个单元测试！");
@@ -122,59 +122,49 @@ public class JvmArg {
 
 		// Jvm运行时信息
 		RuntimeMXBean run = ManagementFactory.getRuntimeMXBean();
-		logger.info("version:{},lib path:{}",run.getVmVersion(),run.getLibraryPath());
+		logger.info("version:{},lib path:{}", run.getVmVersion(), run.getLibraryPath());
 	}
 
-	
 	/**
-	 * 常用扩展指令
-	 * -Xms<size> 设置初识Java堆大小
-	 * -Xmx<size> 设置最大java堆大小
-	 * -Xss<size> 设置Java线程堆栈大小
+	 * 常用扩展指令 -Xms<size> 设置初识Java堆大小 -Xmx<size> 设置最大java堆大小 -Xss<size>
+	 * 设置Java线程堆栈大小
 	 * 
 	 * 显示Java相关设置，并继续 -XshowSettings:[all|vm|properties|locale]
 	 */
-	
+
 	/**
-	 * 常用基本命令
-	 *  -ea 启动断言，在单元测试的时候会用到
-	 *  -D<name>=<value> 设置系统属性，在使用Maven的时候经常会看到这种写法
-	 *  -verbose[:class|gc|jni] 启动虚拟机的一些运行时输出(类加载信息，GC信息，native方法调用情况)
-	 *  -XX:PermSize=<size> 设置永久区初始化大小
-	 *  -XX:MaxPermSize=<size> 设置永久区最大大小
-	 *  
-	 *  -XX:NewSize=<size> 设置堆栈新生代初始化（最小）大小
-	 *  -XX:MaxNewSize=<size> 设置堆栈新生的最大容量
-	 *  
-	 *  老年带容量不可以直接设置
-	 *  老年带容量=堆容量-新生代容量
-	 *  
+	 * 常用基本命令 -ea 启动断言，在单元测试的时候会用到 -D<name>=<value> 设置系统属性，在使用Maven的时候经常会看到这种写法
+	 * -verbose[:class|gc|jni] 启动虚拟机的一些运行时输出(类加载信息，GC信息，native方法调用情况)
+	 * -XX:PermSize=<size> 设置永久区初始化大小 -XX:MaxPermSize=<size> 设置永久区最大大小
+	 * 
+	 * -XX:NewSize=<size> 设置堆栈新生代初始化（最小）大小 -XX:MaxNewSize=<size> 设置堆栈新生的最大容量
+	 * 
+	 * 老年带容量不可以直接设置 老年带容量=堆容量-新生代容量
+	 * 
 	 */
-	
+
 	/**
-	 *  参考：http://www.cnblogs.com/mikevictor07/p/5024645.html
-	 *  -XX:+PrintGCDetails  #打印详细的GC信息
-	 *  
-	 *  [Times: user=0.00 sys=0.00, real=0.05 secs]
-	 *  user:GC需要各个CPU的总时间
-	 *  sys:回收器自身行为所占的时间
-	 *  real:本次GC所消耗的真正时间
-	 *  
-	 *  -verbose:gc #简略打印GC信息 
-	 *  *****************************************************************
-	 *  [GC (System.gc())  22323K->640K(117760K), 0.0008403 secs]
-	 *	[Full GC (System.gc())  640K->532K(117760K), 0.0049525 secs]
-	 *  *****************************************************************
-	 *  
-	 *  -Xloggc:gc.log  #记录GC日志到文件gc.log中
-	 *  
-	 *  -XX:+HeapDumpOnOutOfMemoryError
-	 *  
-	 *  
-	 *  -XX:+PrintGCDateStamps #打印GC发生的详细时间
-	 *  
-	 *  -XX:+PrintGCApplicationStoppedTime #输出GC造成应用暂停的时间
-	 *  
-	 *  -XX:+PrintHeapAtGC #打印GC时堆栈的详细信息
+	 * 参考：http://www.cnblogs.com/mikevictor07/p/5024645.html -XX:+PrintGCDetails
+	 * #打印详细的GC信息
+	 * 
+	 * [Times: user=0.00 sys=0.00, real=0.05 secs] user:GC需要各个CPU的总时间
+	 * sys:回收器自身行为所占的时间 real:本次GC所消耗的真正时间
+	 * 
+	 * -verbose:gc #简略打印GC信息
+	 * ***************************************************************** [GC
+	 * (System.gc()) 22323K->640K(117760K), 0.0008403 secs] [Full GC
+	 * (System.gc()) 640K->532K(117760K), 0.0049525 secs]
+	 * *****************************************************************
+	 * 
+	 * -Xloggc:gc.log #记录GC日志到文件gc.log中
+	 * 
+	 * -XX:+HeapDumpOnOutOfMemoryError
+	 * 
+	 * 
+	 * -XX:+PrintGCDateStamps #打印GC发生的详细时间
+	 * 
+	 * -XX:+PrintGCApplicationStoppedTime #输出GC造成应用暂停的时间
+	 * 
+	 * -XX:+PrintHeapAtGC #打印GC时堆栈的详细信息
 	 */
 }

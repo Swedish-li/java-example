@@ -9,6 +9,7 @@ import com.lrs.freemarker.TestBase;
 
 public class TestType extends TestBase {
 	private final static String templateName = "type.ftl";
+
 	@Test
 	public void testDate() {
 

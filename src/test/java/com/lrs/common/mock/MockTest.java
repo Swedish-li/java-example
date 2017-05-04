@@ -25,14 +25,15 @@ public class MockTest {
 		// 使用mock方法生成mock对象
 		@SuppressWarnings("unchecked")
 		List<String> list = mock(List.class);
-		
+
 		list.add("one");
 		list.clear();
-		
+
 		// 方法执行验证
 		verify(list).add("one");
 		verify(list).clear();
 	}
+
 	/**
 	 * 行为模拟
 	 */
@@ -42,7 +43,7 @@ public class MockTest {
 		LinkedList<String> linkedList = mock(LinkedList.class);
 		// 在执行方法之前做行为模拟
 		when(linkedList.get(0)).thenReturn("first");
-		
+
 		System.out.println(linkedList.get(0));
 		// 未进行模拟的返回null
 		System.out.println(linkedList.get(8));

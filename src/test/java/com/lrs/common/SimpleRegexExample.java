@@ -142,7 +142,7 @@ public class SimpleRegexExample {
 		// 方法上的注解
 		Method method = clazz.getMethod("getName");
 		MethodInfo mtMethodInfo = method.getAnnotation(MethodInfo.class);
-		if (mtMethodInfo!=null) {
+		if (mtMethodInfo != null) {
 			String val = mtMethodInfo.value();
 			System.out.println(val);
 			assertEquals("get-name-info", val);

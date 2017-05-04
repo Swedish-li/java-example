@@ -148,9 +148,9 @@ public class NioTest {
 	public void testSelectionKey() {
 		// SelectionKey.OP_ACCEPT : 1 << 0
 		logger.info("OP_ACCEPT(1 << 0):" + SelectionKey.OP_ACCEPT);
-		logger.info("OP_CONNECT(1 << 2):"+SelectionKey.OP_CONNECT);
-		logger.info("OP_READ(1 << 3):"+SelectionKey.OP_READ);
-		logger.info("OP_WRITE(1 << 4):"+SelectionKey.OP_WRITE);
+		logger.info("OP_CONNECT(1 << 2):" + SelectionKey.OP_CONNECT);
+		logger.info("OP_READ(1 << 3):" + SelectionKey.OP_READ);
+		logger.info("OP_WRITE(1 << 4):" + SelectionKey.OP_WRITE);
 	}
 
 	public void printBuffer(ByteBuffer buffer) {

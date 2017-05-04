@@ -1,6 +1,5 @@
 package com.lrs.common.model;
 
-
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
@@ -12,10 +11,10 @@ public class ListBean {
 
 	private List<People> list;
 
-	@XmlElements({ 
-		@XmlElement(name = "user", type = People.class)
+	@XmlElements({
+			@XmlElement(name = "user", type = People.class)
 	})
-	
+
 	public List<People> getList() {
 		return list;
 	}

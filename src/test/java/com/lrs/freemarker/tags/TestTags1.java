@@ -34,7 +34,5 @@ public class TestTags1 extends TestBase {
 	public void testInclude() {
 		process(getRoot(), templateName);
 	}
-	
-	
 
 }

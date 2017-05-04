@@ -17,8 +17,8 @@ public class TestCarValidate extends TestValidatorBase {
 		Car car = new Car(null, "DD-AB-123", 4);
 		Set<ConstraintViolation<Car>> constraintViolations = validator.validate(car);
 		assertEquals(1, constraintViolations.size());
-		//提示信息会根据语言环境变化
-		//国际化信息保存在hibernate-validator-5.3.4.Final.jar中的org\hibernate\validator文件夹下
+		// 提示信息会根据语言环境变化
+		// 国际化信息保存在hibernate-validator-5.3.4.Final.jar中的org\hibernate\validator文件夹下
 		assertEquals("不能为null", constraintViolations.iterator().next().getMessage());
 	}
 

@@ -38,18 +38,18 @@ public class TestMacro extends TestBase {
 		root.put("size", args);
 		// 数字的整数部分
 		root.put("int", -12.5);
-		
+
 		root.put("userName", "Jack");
-		
+
 		root.put("cityName", "shanghai");
-		
-		root.put("countryName","china");
-		
+
+		root.put("countryName", "china");
 
 		process(root, functionFtlName);
 	}
-	
+
 	private final static String htmlTemlateFtl = "htmlTemplate.ftl";
+
 	@Test
 	public void testHtml() {
 		process(getRoot(), htmlTemlateFtl);

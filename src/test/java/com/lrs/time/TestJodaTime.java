@@ -72,15 +72,15 @@ public class TestJodaTime {
 	@Test
 	public void testFormatDateTime() {
 		DateTime dateTime = new DateTime();
-		//02/10/2017 02:47:41.725下午
+		// 02/10/2017 02:47:41.725下午
 		print(dateTime.toString("MM/dd/yyyy hh:mm:ss.SSSa"));
-		//10-02-2017 14:47:41
+		// 10-02-2017 14:47:41
 		print(dateTime.toString("dd-MM-yyyy HH:mm:ss"));
-		//星期五 10 二月, 2017 14:47:41 下午
+		// 星期五 10 二月, 2017 14:47:41 下午
 		print(dateTime.toString("EEEE dd MMMM, yyyy HH:mm:ss a"));
-		//02/10/2017 14:47 Asia/Shanghai
+		// 02/10/2017 14:47 Asia/Shanghai
 		print(dateTime.toString("MM/dd/yyyy HH:mm ZZZZ"));
-		//02/10/2017 14:47 +0800
+		// 02/10/2017 14:47 +0800
 		print(dateTime.toString("MM/dd/yyyy HH:mm Z"));
 	}
 

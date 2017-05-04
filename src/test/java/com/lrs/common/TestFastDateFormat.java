@@ -76,7 +76,8 @@ public class TestFastDateFormat {
 		}
 
 	}
-	//使用StopWatch记录代码执行时间
+
+	// 使用StopWatch记录代码执行时间
 	// DateUtil ：将时间字符串转换为Date
 	// DateFormatUtil:将Date格式化为字符串
 	@Test

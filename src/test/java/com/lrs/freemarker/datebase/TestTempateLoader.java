@@ -124,8 +124,8 @@ public class TestTempateLoader {
 		System.out.println("========================华丽的分割线=================================");
 		writer = new StringWriter();
 		CacheStorage cache = config.getCacheStorage();
-		//cache.remove(templateKey);
-		//手动清空缓存
+		// cache.remove(templateKey);
+		// 手动清空缓存
 		cache.clear();
 		try {
 			TimeUnit.SECONDS.sleep(2);

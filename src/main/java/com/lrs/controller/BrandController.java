@@ -14,7 +14,7 @@ import com.lrs.service.BrandService;
 @Controller
 @RequestMapping("brand")
 public class BrandController {
-	
+
 	@Resource
 	private BrandService brandService;
 

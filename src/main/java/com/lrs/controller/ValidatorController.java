@@ -31,7 +31,7 @@ public class ValidatorController {
 		for (FieldError error : errors) {
 			String msg = error.getDefaultMessage();
 			String code = error.getCode();
-			logger.error("code:{},msg:{}",code, msg);
+			logger.error("code:{},msg:{}", code, msg);
 		}
 		logger.info("model map:{}", model);
 		if (rs.hasErrors()) {

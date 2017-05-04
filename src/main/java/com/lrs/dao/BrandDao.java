@@ -35,16 +35,16 @@ public interface BrandDao {
 
 	@ConstructorArgs({ @Arg(column = "id", javaType = Long.class) })
 	@Results({
-		@Result(property="name",column="name",javaType=String.class),
-		@Result(property="description",column="description",javaType=String.class),
-		@Result(property="imgUrl",column="img_url",javaType=String.class),
-		@Result(property="sort",column="sort",javaType=Integer.class),
-		@Result(property="isDisplay",column="is_display",javaType=Integer.class)
+			@Result(property = "name", column = "name", javaType = String.class),
+			@Result(property = "description", column = "description", javaType = String.class),
+			@Result(property = "imgUrl", column = "img_url", javaType = String.class),
+			@Result(property = "sort", column = "sort", javaType = Integer.class),
+			@Result(property = "isDisplay", column = "is_display", javaType = Integer.class)
 	})
 	@Select({
-		"SELECT",
-		"id,name,description,img_url,sort,is_display",
-		"FROM brand WHERE id = #{id}"
+			"SELECT",
+			"id,name,description,img_url,sort,is_display",
+			"FROM brand WHERE id = #{id}"
 	})
 	Brand selectBrand(Long id);
 }

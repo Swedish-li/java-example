@@ -1,12 +1,8 @@
 package com.lrs.common.utils;
 
-
 import javax.xml.bind.annotation.XmlElement;
 
 import com.lrs.common.model.People;
-
-
-
 
 public class MapElements {
 	@XmlElement
@@ -16,7 +12,7 @@ public class MapElements {
 	public People user;
 
 	public MapElements() {
-	} 
+	}
 
 	public MapElements(String key, People user) {
 		this.key = key;

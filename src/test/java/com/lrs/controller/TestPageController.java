@@ -57,18 +57,20 @@ public class TestPageController {
 				.andExpect(status().isOk());
 
 	}
-	// Json断言依赖<a href="https://github.com/jayway/JsonPath">JsonPath</a> expression
+
+	// Json断言依赖<a href="https://github.com/jayway/JsonPath">JsonPath</a>
+	// expression
 	@Test
 	public void testGetBrand() throws Exception {
 		mockMvc.perform(post("/view/get-brand"))
-			.andDo(print())
-			.andExpect(status().isOk())
-			.andExpect(content().contentType("application/json;charset=UTF-8"))
-			.andExpect(jsonPath("$.id").value(5))
-			.andExpect(jsonPath("$.name").value("test"))
-			.andExpect(jsonPath("$.description").value("test desc"))
-			.andExpect(jsonPath("$.imgUrl").value("imgUrl"))
-			.andExpect(jsonPath("$.sort").value(10))
-			.andExpect(jsonPath("$.isDisplay").value(1));
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$.id").value(5))
+				.andExpect(jsonPath("$.name").value("test"))
+				.andExpect(jsonPath("$.description").value("test desc"))
+				.andExpect(jsonPath("$.imgUrl").value("imgUrl"))
+				.andExpect(jsonPath("$.sort").value(10))
+				.andExpect(jsonPath("$.isDisplay").value(1));
 	}
 }

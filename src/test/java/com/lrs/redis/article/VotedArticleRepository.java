@@ -22,7 +22,7 @@ public class VotedArticleRepository {
 	 * @param link
 	 */
 	public long postArticle(final String user, final String title, final String link) {
-		//使用一个counter存储文章id
+		// 使用一个counter存储文章id
 		long articleId = jedis.incr("article:");
 		// 文章投票信息保存到set中
 		String voted = "voted:" + articleId;
@@ -34,7 +34,7 @@ public class VotedArticleRepository {
 		String article = "article:" + articleId;
 
 		jedis.hmset(article, new HashMap<String, String>() {
-			
+
 			private static final long serialVersionUID = 1L;
 
 			{
@@ -42,12 +42,12 @@ public class VotedArticleRepository {
 				put("link", link);
 				put("poster", user);
 				put("time", Long.toString(current));
-				put("votes",Integer.toString(1));
+				put("votes", Integer.toString(1));
 			}
 		});
-		//添加文章评分信息(score:)-zset(有序集合)
+		// 添加文章评分信息(score:)-zset(有序集合)
 		jedis.zadd("score:", current, article);
-		//添加文章发布时间信息(time:)-zset(有序集合)
+		// 添加文章发布时间信息(time:)-zset(有序集合)
 		jedis.zadd("time:", current, article);
 		return articleId;
 

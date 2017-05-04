@@ -81,6 +81,7 @@ public class NioEchoServer {
 
 		}
 	}
+
 	/**
 	 * 将ByteBuffer转换为字符串
 	 * 
@@ -96,7 +97,7 @@ public class NioEchoServer {
 			charBuffer = decoder.decode(buffer);
 			return charBuffer.toString();
 		} catch (Exception ex) {
-			throw new RuntimeException("ByteBuffer数据读取失败！",ex);
+			throw new RuntimeException("ByteBuffer数据读取失败！", ex);
 		}
 	}
 }

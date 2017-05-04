@@ -50,8 +50,10 @@ public class PageController {
 	public String toInt(int start) {
 		return "convert to test 上海!";
 	}
+
 	/**
-	 *  Json响应
+	 * Json响应
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "get-brand")
