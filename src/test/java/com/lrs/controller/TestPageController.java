@@ -1,20 +1,11 @@
 package com.lrs.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
-import javax.annotation.Resource;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Spring Mvc 的单元测试
@@ -22,18 +13,11 @@ import org.springframework.web.context.WebApplicationContext;
  * @author Swedish-li
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration("classpath:dispatcher-servlet.xml")
-public class TestPageController {
-
-	private MockMvc mockMvc;
-	@Resource
-	private WebApplicationContext webApplicationContext;
+public class TestPageController extends SimpleBaseTest {
 
 	@Before
 	public void setUp() {
-		mockMvc = webAppContextSetup(webApplicationContext).build();
+		initMvc();
 	}
 
 	// java.lang.ClassNotFoundException: javax.servlet.SessionCookieConfig

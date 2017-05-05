@@ -18,7 +18,6 @@ public class BrandDaoImpl implements BrandDao {
 
 	@Override
 	public List<Brand> selectBrandListByQuery(BrandQuery brandQuery) {
-
 		return sqlSession.getMapper(BrandDao.class).selectBrandListByQuery(brandQuery);
 	}
 

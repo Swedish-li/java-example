@@ -42,26 +42,26 @@
 		<property name="supportedMediaTypes">
 			<list>
 				<value>application/json</value>
-				<value>application/xml</value>
 				<value>text/html</value>
 				<value>text/plain</value>
-				<value>text/xml</value>
 			</list>
 		</property>
 	</bean>
 
-	<bean name="jaxb2MarshallingView"
-		class="org.springframework.web.servlet.view.xml.MarshallingView">
-		<constructor-arg>
-			<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-				<property name="packagesToScan">
-					<list>
-						<value>com.lrs.common.model</value>
-					</list>
-				</property>
-			</bean>
-		</constructor-arg>
+	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="packagesToScan">
+			<list>
+				<value>com.lrs.common.model</value>
+			</list>
+		</property>
 	</bean>
+
+	<bean id="marshallingHttpMessageConverter"
+		class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+		<property name="marshaller" ref="jaxb2Marshaller" />
+		<property name="unmarshaller" ref="jaxb2Marshaller" />
+	</bean>
+
 	<!-- Excel导出视图 -->
 	<bean name="excelView" class="com.lrs.common.view.ExcelView"></bean>
 
@@ -86,6 +86,7 @@
 		<mvc:message-converters>
 			<ref bean="stringHttpMessageConverter" />
 			<ref bean="jackson2HttpMessageConverter" />
+			<ref bean="marshallingHttpMessageConverter" />
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
