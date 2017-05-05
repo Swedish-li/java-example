@@ -2,6 +2,8 @@ package com.lrs.common.mock;
 
 import static org.mockito.Mockito.*;
 
+import static org.junit.Assert.*;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,9 +45,9 @@ public class MockTest {
 		LinkedList<String> linkedList = mock(LinkedList.class);
 		// 在执行方法之前做行为模拟
 		when(linkedList.get(0)).thenReturn("first");
-
-		System.out.println(linkedList.get(0));
+		
+		assertEquals("first", linkedList.get(0));
 		// 未进行模拟的返回null
-		System.out.println(linkedList.get(8));
+		assertNull(linkedList.get(8));
 	}
 }
