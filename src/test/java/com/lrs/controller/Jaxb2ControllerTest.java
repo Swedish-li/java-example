@@ -22,7 +22,7 @@ public class Jaxb2ControllerTest extends SimpleBaseTest {
 						.content(getExampleXml())
 						.contentType(MediaType.APPLICATION_XML))
 				.andExpect(status().isOk())
-				.andDo(print());
+				.andDo(log()); // 将MvcResult输出到日志DEBUG级别
 	}
 
 	private String getExampleXml() {

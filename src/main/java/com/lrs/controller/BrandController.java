@@ -18,7 +18,7 @@ public class BrandController {
 	@Resource
 	private BrandService brandService;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<Brand> getBrand(@PathVariable("id") Long id) {
 		Brand brand = brandService.getBrand(id);
 		return ResponseEntity.ok(brand);

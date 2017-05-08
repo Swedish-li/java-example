@@ -60,6 +60,7 @@ public class VerifyExampleTest {
 	}
 
 	// 验证执行顺序
+	@SuppressWarnings("unchecked")
 	@Test
 	public void verification_in_order() {
 		List<Integer> list = mock(List.class);
