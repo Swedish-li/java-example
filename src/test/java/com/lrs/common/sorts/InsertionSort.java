@@ -16,6 +16,7 @@ public class InsertionSort extends BaseSort {
 	void sort(int[] arr) {
 		int len = arr.length;
 		for (int i = 0; i < len - 1; i++) {
+			// 遍历 子数组 [0,j]
 			for (int j = i + 1; j > 0; j--) {
 				if (arr[j - 1] <= arr[j]) {
 					break;
