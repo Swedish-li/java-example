@@ -1,32 +1,19 @@
 package com.lrs.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.lrs.model.Brand;
 
 //   /views/warehouse/warehouse
-@Controller
+@RestController
 @RequestMapping("view")
 public class PageController {
-	@RequestMapping(value = "{pageDir}/{pageName}")
-	public String toPage(@PathVariable(name = "pageDir") String pageDir,
-			@PathVariable(name = "pageName") String pageName) {
-		return pageDir + "/" + pageName;
-	}
-
-	@RequestMapping(value = "{pageDir}/{pageSubDir}/{pageName}")
-	public String toPage(@PathVariable(name = "pageDir") String pageDir,
-			@PathVariable(name = "pageSubDir") String pageSubDir, @PathVariable(name = "pageName") String pageName) {
-		return pageDir + "/" + pageSubDir + "/" + pageName;
-	}
-
-	@RequestMapping(value = "{pageName}")
-	public String toPage(@PathVariable(name = "pageName") String pageName) {
-		return pageName;
-	}
 
 	/**
 	 * 数据类型转换注入
@@ -46,7 +33,6 @@ public class PageController {
 	 * @param start
 	 */
 	@RequestMapping(value = "convert-int")
-	@ResponseBody
 	public String toInt(int start) {
 		return "convert to test 上海!";
 	}
@@ -57,7 +43,6 @@ public class PageController {
 	 * @return
 	 */
 	@RequestMapping(value = "get-brand")
-	@ResponseBody
 	public Brand getBrand() {
 		Brand brand = new Brand()
 				.setId(5L)
@@ -68,5 +53,13 @@ public class PageController {
 				.setSort(10);
 
 		return brand;
+	}
+	@RequestMapping("get-map")
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("decimal", String.valueOf(new BigDecimal(1.57788).doubleValue()));
+		map.put("date", new Date());
+		map.put("double", 1.879);
+		return map;
 	}
 }

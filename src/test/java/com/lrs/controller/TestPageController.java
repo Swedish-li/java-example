@@ -19,7 +19,15 @@ public class TestPageController extends SimpleBaseTest {
 	public void setUp() {
 		initMvc();
 	}
-
+	
+	@Test
+	public void testGetMap() throws Exception {
+		mockMvc.perform(get("/view/get-map"))
+			.andDo(log())
+			.andExpect(status().isOk());
+		
+	}
+	
 	// java.lang.ClassNotFoundException: javax.servlet.SessionCookieConfig
 	// 更换Servlet-api 版本
 	@Test
