@@ -26,6 +26,104 @@ public class SimpleRedisTest {
 	}
 
 	@Test
+	public void testSortedSet() {
+		Jedis jedis = getJedis();
+		String key = "zset-key1";
+
+		jedis.zadd(key, new HashMap<String, Double>() {
+		
+			private static final long serialVersionUID = 1L;
+
+			{
+				put("key1", 12.2);
+				put("key2", 8D);
+			}
+		});
+		
+		String type = jedis.type(key);
+		
+		assertEquals("zset", type);
+	}
+
+	// sdiff:差集
+	// sinte:交集
+	// sunion:并集
+	@Test
+	public void testSet2() {
+		Jedis jedis = getJedis();
+		String key1 = "set-diff-key1";
+		String key2 = "set-diff-key2";
+		jedis.sadd(key1, "Characteristics", "Architecture", "restrict");
+		jedis.sadd(key2, "Characteristics", "Stateless");
+
+		// 返回一个集合的全部成员，该集合是所有给定集合之间的差集
+		Set<String> set = jedis.sdiff(key1, key2);
+		assertFalse("", set.contains("Characteristics"));
+		assertFalse("", set.contains("Stateless"));
+		assertTrue(set.contains("Architecture"));
+		assertTrue(set.contains("restrict"));
+	}
+
+	private Jedis initData(String key) {
+		Jedis jedis = getJedis();
+		jedis.sadd(key, "Identifying Resources");
+		jedis.sadd(key, "Designing URLs");
+		jedis.sadd(key, "API Response");
+		jedis.sadd(key, "Storing application data on server side");
+
+		return jedis;
+	}
+
+	@Test
+	public void testSet4() {
+		String key = "set-key-4";
+		Jedis jedis = initData(key);
+		// Redis 2.4 版本以前， SREM 只接受单个 member 值
+		long remCount = jedis.srem(key, "API Response", "Designing URLs");
+
+		assertEquals(1, remCount);
+		assertEquals(Long.valueOf(3), jedis.scard(key));
+
+	}
+
+	@Test
+	public void testSet3() {
+		String key = "set-key-3";
+
+		Jedis jedis = initData(key);
+		// 返回一个随机元素；如果集合为空，返回 nil
+		String val = jedis.srandmember(key);
+
+		assertTrue(jedis.sismember(key, val));
+		assertEquals(Long.valueOf(4), jedis.scard(key));
+
+		// 移除并返回集合中的一个随机元素。
+		String val2 = jedis.spop(key);
+		assertFalse(jedis.sismember(key, val2));
+		assertEquals(Long.valueOf(3), jedis.scard(key));
+
+	}
+
+	@Test
+	public void testSet() {
+		Jedis jedis = getJedis();
+		String setKey = "set-key1";
+		jedis.sadd(setKey, "Characteristics", "Architecture", "restrict");
+		Set<String> set = jedis.smembers(setKey);
+
+		assertTrue(set.contains("Characteristics"));
+		assertTrue(set.contains("Architecture"));
+		assertTrue(set.contains("restrict"));
+
+		assertEquals(Long.valueOf(1), jedis.srem(setKey, "restrict"));
+		// 判断 member 元素是否集合 key 的成员。
+		assertTrue(jedis.sismember(setKey, "Characteristics"));
+		// 返回集合 key 的基数(集合中元素的数量)。
+		assertEquals(Long.valueOf(2), jedis.scard(setKey));
+
+	}
+
+	@Test
 	public void testList2() {
 		// 删除值为value的元素（当count大于0时从左面删count个，count小于0从右面算起删count个，等于0，全删）
 		String listKey = "list-key2";
