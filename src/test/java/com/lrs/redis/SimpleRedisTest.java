@@ -17,12 +17,37 @@ import org.junit.Test;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
 
 // set,zset
 public class SimpleRedisTest {
 
 	private static Jedis getJedis() {
-		return new Jedis("127.0.0.1", 6379);
+		Jedis jedis = new Jedis("127.0.0.1", 6379);
+		// jedis.auth(password)
+		jedis.select(0);
+		return jedis;
+	}
+
+	// client打包多条命令一起发出，不需要等待单条命令的响应返回
+	@Test
+	public void testPipline() {
+		Jedis jedis = getJedis();
+		Pipeline pip = jedis.pipelined();
+		pip.multi();
+		pip.set("hello-pip", "Redis");
+		pip.sadd("key-pip-s", "val1");
+		pip.incr("num-pip");
+		pip.exec();
+		// Cannot use Jedis when in Pipeline. Please use Pipeline or reset jedis
+		// state 
+		pip.sync();
+
+		jedis.resetState();
+
+		assertTrue(jedis.exists("hello-pip"));
+		assertTrue(jedis.exists("key-pip-s"));
+		assertTrue(jedis.exists("key-pip-s"));
 	}
 
 	@Test
@@ -31,7 +56,7 @@ public class SimpleRedisTest {
 		String key = "zset-key1";
 
 		jedis.zadd(key, new HashMap<String, Double>() {
-		
+
 			private static final long serialVersionUID = 1L;
 
 			{
@@ -39,9 +64,9 @@ public class SimpleRedisTest {
 				put("key2", 8D);
 			}
 		});
-		
+
 		String type = jedis.type(key);
-		
+
 		assertEquals("zset", type);
 	}
 
