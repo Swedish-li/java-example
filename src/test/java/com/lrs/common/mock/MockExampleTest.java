@@ -1,12 +1,20 @@
 package com.lrs.common.mock;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+
+import com.lrs.model.Brand;
+
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
+
+import javax.servlet.http.HttpServletResponse;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +26,83 @@ import static org.junit.Assert.*;
  */
 
 public class MockExampleTest {
+
+	// void 方法
+	@Test
+	public void shouldCallSet() {
+		Brand brand = mock(Brand.class);
+		brand.setId(183L);
+		verify(brand, times(1)).setId(183L);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldThrowException() {
+		Brand brand = mock(Brand.class);
+		doThrow(new IllegalArgumentException("arg should not be blank")).when(brand).setDescription("");
+		// doNothing().doThrow(new IllegalArgumentException("arg should not be
+		// blank")).when(brand).setDescription("");
+		brand.setDescription("");
+
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void shouldThrowIllegalStateException() {
+		HttpServletResponse res = mock(HttpServletResponse.class);
+		// 只有void方法可以使用 doNothing
+		doNothing().doThrow(new IllegalStateException("can't repeat set content-type"))
+				.when(res).setContentType(anyString());
+		res.setContentType("text/xml");
+		res.setContentType("application/pdf");
+	}
+
+	@Test
+	public void shouldCallRealMethod() {
+		Brand brand = mock(Brand.class);
+
+		doCallRealMethod().when(brand).setId(1L);
+		doCallRealMethod().when(brand).getId();
+		brand.setId(1L);
+
+		assertEquals(Long.valueOf(1L), brand.getId());
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldAnswer() {
+		HttpServletResponse res = mock(HttpServletResponse.class);
+
+		doAnswer(new Answer<Void>() {
+
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				HttpServletResponse mockRes = (HttpServletResponse) invocation.getMock();
+				when(mockRes.getContentType()).thenReturn("application/octet-stream;charset=utf-8");
+				return null;
+			}
+		}).when(res).setContentType("application/octet-stream;charset=utf-8");
+
+		res.setContentType("application/octet-stream;charset=utf-8");
+		assertEquals("application/octet-stream;charset=utf-8", res.getContentType());
+
+		// =======================================================
+		doAnswer(new Answer<String>() {
+
+			@Override
+			public String answer(InvocationOnMock invocation) throws Throwable {
+
+				// 获取方法执行参数
+				Object[] args = invocation.getArguments();
+				String arg = (String) args[0];
+				if (StringUtils.isBlank(arg)) {
+					throw new IllegalArgumentException("arg can't be blank!");
+				}
+				return "header-content";
+			}
+		}).when(res).getHeader(anyString());
+
+		assertEquals("header-content", res.getHeader("content"));
+		res.getHeader("");
+	}
 
 	@Test
 	public void test1() {
@@ -65,14 +150,14 @@ public class MockExampleTest {
 
 	// 异常模拟
 	@Test(expected = IOException.class)
-	public void testForIOException() throws IOException  {
+	public void testForIOException() throws IOException {
 		OutputStream mockStream = mock(OutputStream.class);
 
 		doThrow(new IOException()).when(mockStream).close();
-		
-		OutputStreamWriter writer  = new OutputStreamWriter(mockStream);
+
+		OutputStreamWriter writer = new OutputStreamWriter(mockStream);
 		writer.close();
 
 	}
-	
+
 }

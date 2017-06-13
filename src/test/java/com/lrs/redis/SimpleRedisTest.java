@@ -29,6 +29,30 @@ public class SimpleRedisTest {
 		return jedis;
 	}
 
+	@Test
+	public void testKeys1() {
+		Set<String> keys = getJedis().keys("*");
+		for (String key : keys) {
+
+			System.out.println(key);
+			if (shouldDel(key)) {
+				System.out.println(key);
+			}
+
+		}
+	}
+
+	private static String[] prefixes = { "key" };
+
+	private static boolean shouldDel(String key) {
+		for (String prefix : prefixes) {
+			if (key.startsWith(prefix)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// client打包多条命令一起发出，不需要等待单条命令的响应返回
 	@Test
 	public void testPipline() {
@@ -40,7 +64,7 @@ public class SimpleRedisTest {
 		pip.incr("num-pip");
 		pip.exec();
 		// Cannot use Jedis when in Pipeline. Please use Pipeline or reset jedis
-		// state 
+		// state
 		pip.sync();
 
 		jedis.resetState();

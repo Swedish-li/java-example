@@ -8,7 +8,14 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+/**
+ * 简单聊天客户端
+ * 
+ * @author Swedish-li
+ *
+ */
 public class SimpleChatClient {
+	// 服务host，port
 	private String host = "localhost";
 	private int port = 9089;
 
@@ -38,6 +45,7 @@ public class SimpleChatClient {
 			boolean exit = false;
 			while (!exit) {
 				String str = sc.next();
+				System.out.println("==>str=>" + str);
 				channel.writeAndFlush(str + "\r\t");
 				if ("exit".equalsIgnoreCase(str)) {
 					exit = true;

@@ -10,11 +10,14 @@ public class TestRedisBase {
 
 	@Before
 	public void before() {
-		jedis = new Jedis("192.168.99.100", 32769);
+		jedis = new Jedis("127.0.0.1", 6379);
 	}
 
 	@Test
 	public void simpleTest() {
 		jedis.set("key1", "value1");
 	}
+
+	
+
 }

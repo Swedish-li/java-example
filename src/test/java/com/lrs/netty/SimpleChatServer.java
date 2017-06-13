@@ -23,6 +23,7 @@ public class SimpleChatServer {
 			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
 					.childHandler(new SimpleChatServerInitializer()).option(ChannelOption.SO_BACKLOG, 128)
 					.childOption(ChannelOption.SO_KEEPALIVE, true);
+			
 
 			System.out.println("server 启动了");
 
