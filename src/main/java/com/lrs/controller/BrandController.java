@@ -23,5 +23,4 @@ public class BrandController {
 		Brand brand = brandService.getBrand(id);
 		return ResponseEntity.ok(brand);
 	}
-
 }

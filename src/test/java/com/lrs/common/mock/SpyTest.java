@@ -35,11 +35,13 @@ public class SpyTest {
 		// 真正的方法会被调用
 		// 将会抛出 IndexOutOfBoundsException 的异常，因为 List 为空
 		// when(spyList.get(0)).thenReturn("foo");
+
+		assertEquals("foo", spyList.get(0));
 	}
 
 	@Spy
 	private List<String> list = new ArrayList<>();
-	
+
 	@Before
 	public void setUp() {
 		// 使用MockitoJUnitRunner注解或在这里初始化当前对象
