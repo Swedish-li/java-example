@@ -23,7 +23,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 /**
- * 使用Captor进行异步单元测试
+ * 使用Captor(捕捉者)进行异步单元测试
  * 
  * https://github.com/android10/Inside_Android_Testing
  * 
@@ -43,16 +43,17 @@ public class CaptorTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
+		// 初始化测试类
 		dummyCaller = new DummyCaller(mockDummyCollaborator);
 	}
 
 	@Test
 	public void testDoSomethingAsynchronouslyUsingDoAnswer() {
 		final List<String> results = Arrays.asList("One", "Two", "Three");
-		// 为callback执行一个同步anwser
-		doAnswer(new Answer() {
+		// 回调函数行为模拟
+		doAnswer(new Answer<Void>() {
 			@Override
-			public Object answer(InvocationOnMock invocation) throws Throwable {
+			public Void answer(InvocationOnMock invocation) throws Throwable {
 				((DummyCallback) invocation.getArguments()[0]).onSuccess(results);
 				return null;
 			}
