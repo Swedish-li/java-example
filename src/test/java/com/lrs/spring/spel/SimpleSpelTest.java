@@ -37,7 +37,7 @@ public class SimpleSpelTest {
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.set(1856, 7, 9);
 		// 使用根对象，设置解析上下文
-		context = new StandardEvaluationContext(new Inventor("Nikola Tesla", "Serbian", calendar.getTime()));
+		context = new StandardEvaluationContext(new Inventor("Nikola Tesla", calendar.getTime(), "Serbian"));
 	}
 
 	// 1、字面量(Literal)表达式
@@ -103,8 +103,8 @@ public class SimpleSpelTest {
 		// 使用上下文缓存重用对象
 		assertEquals("Nikola Tesla", parser.parseExpression(exp).getValue(context));
 		// 使用root object
-		assertEquals("Spring-spel", parser.parseExpression(exp).getValue(new Inventor("Spring-spel", "none",
-				new Date())));
+		assertEquals("Spring-spel", parser.parseExpression(exp).getValue(new Inventor("Spring-spel", new Date(),
+				"none")));
 	}
 
 	@Test
@@ -163,6 +163,15 @@ public class SimpleSpelTest {
 		// matches
 		assertTrue(parser.parseExpression("'5.00' matches '^-?\\d+(\\.\\d{2})?$'").getValue(Boolean.class));
 		assertFalse(parser.parseExpression("'5.0068' matches '^-?\\d+(\\.\\d{2})?$'").getValue(Boolean.class));
+	}
+
+	@Test
+	public void elvisOperatorTess() {
+		// String name = "Elvis Presley";
+		// String displayName = name != null ? name : "Unknown";
+		Inventor inventor = new Inventor(null, null, "china");
+		String name = parser.parseExpression("name?:'Unknown'").getValue(inventor, String.class);
+		assertEquals("Unknown", name);
 	}
 
 }
