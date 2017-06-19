@@ -7,11 +7,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.util.StringUtils;
+
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 
 /**
@@ -62,21 +63,30 @@ public class ExcelView extends AbstractXlsView {
 		 * zh-CN; rv:1.7.10) Gecko/20050717 Firefox/1.0.6
 		 */
 		String agent = request.getHeader("USER-AGENT");
-		// ie浏览器
-		if ((agent != null) && (-1 != agent.indexOf("MSIE"))) {
-			String newFileName = URLEncoder.encode(filename, "UTF-8");
-			newFileName = StringUtils.replace(newFileName, "+", "%20");
+
+		String name = null;
+
+		if (StringUtils.isBlank(agent)) {
+			name = URLEncoder.encode(filename, "UTF8");
+		} else if (-1 != agent.indexOf("MSIE")) {
+			// ie浏览器
+			name = URLEncoder.encode(filename, "UTF-8");
+			name = StringUtils.replace(name, "+", "%20");
 			/*
 			 * if (newFileName.length() > 150) { newFileName = new
 			 * String(filename.getBytes("UTF-8"), "ISO8859-1"); newFileName =
 			 * StringUtils.replace(newFileName, " ", "%20"); }
 			 */
-			return newFileName;
+
 		}
 		// if ((agent != null) && (-1 != agent.indexOf("Mozilla")))
 		// return MimeUtility.encodeText(filename, "UTF-8", "B");
 
-		return URLEncoder.encode(filename, "UTF8");
+		// 火狐 Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0
+		else if (agent.toUpperCase().indexOf("FIREFOX") != -1) {
+			name = new String(filename.getBytes("UTF-8"), "iso-8859-1");
+		}
+		return name;
 
 	}
 
