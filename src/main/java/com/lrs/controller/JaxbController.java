@@ -40,9 +40,9 @@ public class JaxbController {
 		for (int i = 0; i < 2; i++) {
 			People user = new People();
 			user.name = "zhangsan" + i;
-			user.id = "1";
+			user.id = "1" + i;
 			user.address = "shenzhen";
-			user.age = 20;
+			user.age = 20 + i;
 			user.sex = "man";
 			user.account = new Account("zhang" + i, "abc123");
 			List<String> cards = new ArrayList<String>();
