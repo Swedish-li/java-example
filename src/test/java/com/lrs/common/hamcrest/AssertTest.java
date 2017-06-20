@@ -91,4 +91,21 @@ public class AssertTest {
 
 	}
 
+	// 数组断言
+	@Test
+	public void arrayTest() {
+		String[] strArr = { "ab", "hello", "world!" };
+
+		// size断言
+		assertThat(strArr, arrayWithSize(3));
+		// 两个数组完全相等
+		assertThat(strArr, arrayContaining("ab", "hello", "world!"));
+		// 数据一致，顺序可以不一致
+		assertThat(strArr, arrayContainingInAnyOrder("hello", "ab", "world!"));
+		// 集合
+		assertThat("world!", isIn(Arrays.asList(strArr)));
+		// 数组
+		assertThat("hello", isOneOf(strArr));
+	}
+
 }
