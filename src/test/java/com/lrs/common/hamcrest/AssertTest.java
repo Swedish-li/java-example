@@ -1,6 +1,39 @@
 package com.lrs.common.hamcrest;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
+import static org.hamcrest.Matchers.arrayWithSize;
+import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+
+import static org.hamcrest.Matchers.hasItem;
+
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.isOneOf;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.isA;
+// is(java.lang.Class<T> type) 这个方法过时
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -8,10 +41,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hamcrest.collection.IsMapContaining;
+import org.hamcrest.core.IsAnything;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
-
+@SuppressWarnings("unused")
 public class AssertTest {
 	/**
 	 * 基本断言
@@ -30,7 +65,8 @@ public class AssertTest {
 	@Test
 	public void testString() {
 		String str = "Hello World!";
-		assertThat(str, is("Hello World!"));
+		// 类型断言
+		assertThat(str, isA(String.class));
 		assertThat(str, startsWith("Hello"));
 		assertThat(str, endsWith("!"));
 		assertThat(str, containsString("World"));
@@ -84,14 +120,31 @@ public class AssertTest {
 		Map<String, String> map = new HashMap<>();
 		map.put("key1", "value1");
 		map.put("hello", "world");
-		assertThat(map, hasEntry("key1", "value1"));
+		assertThat(map, IsMapContaining.hasEntry("key1", "value1"));
 
-		assertThat(map, hasKey("key1"));
-		assertThat(map, hasValue("world"));
+		assertThat(map, IsMapContaining.hasKey("key1"));
+		assertThat(map, IsMapContaining.hasValue("world"));
 
 	}
 
-	// 数组断言
+	// 泛型不一致的map测试
+	@Test
+	public void mapTest2() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("key1", "value1");
+		map.put("hello", "world");
+		// hasKey
+		assertThat(map, new IsMapContaining<String, Object>(equalTo("key1"),
+				anything()));
+		// hasValue
+		assertThat(map, new IsMapContaining<String, Object>(new IsAnything<String>(), new IsEqual<Object>("value1")));
+
+		// hasEntry
+		assertThat(map, new IsMapContaining<String, Object>(new IsEqual<Object>("key1"), new IsEqual<Object>(
+				"value1")));
+	}
+
+	// 数组断言`
 	@Test
 	public void arrayTest() {
 		String[] strArr = { "ab", "hello", "world!" };
