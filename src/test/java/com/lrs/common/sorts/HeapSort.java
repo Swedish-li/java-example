@@ -28,6 +28,7 @@ public class HeapSort extends BaseSort {
 		 * 将数组堆化
 		 */
 		this.arr = arr;
+		// max index
 		int len = arr.length - 1;
 		// 获取第一个非叶节点
 		int startIndex = (len - 1) >> 1;
