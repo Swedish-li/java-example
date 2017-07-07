@@ -1,9 +1,7 @@
 package com.lrs.common;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -17,17 +15,37 @@ import org.junit.Test;
 
 /**
  * java正则表达式简单示例
- * 
- * Pattern:正则规范 Matcher:执行规范，使用Pattern规定好的规则进行校验 常用正则规则： \d : 数字 \D : 非数字 \w
- * :字母，数字，下划线 \W : 非字母数字下划线
- * 
- * 
- * junit中的断言和注解 ：http://blog.csdn.net/u014042146/article/details/49465917
- * 
+ *
  * @author liruishi
  *
  */
 public class SimpleRegexExample {
+	// 匹配行结尾的空白,变量线程安全
+	Pattern pattern = Pattern.compile("\\s+$");
+
+	@Test
+	public void shouldDelSpaceInLineEnd() {
+		String str = " Hello World \n";
+
+		String str2 = "   \n";
+		Matcher matcher = pattern.matcher(str);
+		// 部分匹配(subsequence of the input sequence)
+		assertThat(matcher.find(), is(true));
+		// 全部匹配(entire region)
+		assertThat(matcher.matches(), is(false));
+		assertThat(pattern.matcher(str2).matches(), is(true));
+
+		// 字符串替换
+		assertThat(str.replaceAll("\\s+$", ""), equalTo(" Hello World"));
+
+	}
+
+	@Test
+	public void testPatternStaticMethods() {
+		// 如果正则只使用一次，可以使用Pattern的静态方法
+		assertThat(Pattern.matches("[\u4e00-\u9fa5]{2}", "中国"), is(true));
+	}
+
 	private boolean isNumWithNoRegex(String str) {
 		boolean flag = true;
 		char[] chars = str.toCharArray();
@@ -112,7 +130,7 @@ public class SimpleRegexExample {
 	 * @throws NoSuchMethodException
 	 */
 	@Test
-	public void parseAnnootation()
+	public void parseAnnotation()
 			throws ClassNotFoundException, NoSuchFieldException, SecurityException, NoSuchMethodException {
 		Class<?> clazz = Class.forName("com.lrs.regex.SimpleRegexExample$App");
 		MethodInfo methodInfo = clazz.getAnnotation(MethodInfo.class);
