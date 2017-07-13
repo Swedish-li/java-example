@@ -1,7 +1,7 @@
-package com.lrs.dao;
+package com.lrs.mapper;
 
 import com.lrs.model.Country;
 
-public interface CountryDao {
+public interface CountryMapper {
 	void save(Country country);
 }

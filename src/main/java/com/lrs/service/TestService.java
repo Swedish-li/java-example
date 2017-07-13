@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lrs.dao.CountryDao;
-import com.lrs.dao.PeopleDao;
+import com.lrs.mapper.CountryMapper;
+import com.lrs.mapper.PeopleMapper;
 import com.lrs.model.Country;
 import com.lrs.model.People;
 
 @Service
 public class TestService {
 	@Resource
-	private PeopleDao peopleDao;
+	private PeopleMapper peopleDao;
 	@Resource
-	private CountryDao countryDao;
+	private CountryMapper countryDao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void testTransaction() {

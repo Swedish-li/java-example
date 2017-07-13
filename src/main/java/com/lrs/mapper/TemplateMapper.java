@@ -1,10 +1,10 @@
-package com.lrs.dao;
+package com.lrs.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.lrs.model.Template;
 
-public interface TemplateDao {
+public interface TemplateMapper {
 	/**
 	 * 根据key值和语言获取模板信息
 	 * 

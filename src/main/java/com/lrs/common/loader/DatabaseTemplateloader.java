@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import com.lrs.dao.TemplateDao;
+import com.lrs.mapper.TemplateMapper;
 import com.lrs.model.Template;
 
 import freemarker.cache.TemplateLoader;
@@ -16,7 +16,7 @@ import freemarker.cache.TemplateLoader;
 @Component
 public class DatabaseTemplateloader implements TemplateLoader {
 	@Resource
-	TemplateDao templateDao;
+	TemplateMapper templateDao;
 
 	@Override
 	public Object findTemplateSource(String name) throws IOException {

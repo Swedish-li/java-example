@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lrs.mapper.BrandMapper;
 import com.lrs.model.Brand;
 import com.lrs.model.query.BrandQuery;
 
@@ -21,7 +22,7 @@ import com.lrs.model.query.BrandQuery;
 public class BrandDaoImplTest {
 
 	@Resource
-	private BrandDao brandDao;
+	private BrandMapper brandDao;
 
 	@Test
 	public void testSelectBrandListByQuery() {

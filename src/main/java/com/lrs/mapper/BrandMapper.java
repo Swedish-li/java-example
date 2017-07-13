@@ -1,4 +1,4 @@
-package com.lrs.dao;
+package com.lrs.mapper;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import com.lrs.model.Brand;
 import com.lrs.model.query.BrandQuery;
 
-public interface BrandDao {
+public interface BrandMapper {
 	/**
 	 * 
 	 * @param brandQuery

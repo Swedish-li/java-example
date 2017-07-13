@@ -1,7 +1,7 @@
-package com.lrs.dao;
+package com.lrs.mapper;
 
 import com.lrs.model.People;
 
-public interface PeopleDao {
+public interface PeopleMapper {
 	void save(People people);
 }
