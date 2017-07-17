@@ -5,15 +5,35 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lrs.model.Brand;
 
-//   /views/warehouse/warehouse
 @RestController
 @RequestMapping("view")
 public class PageController {
+
+	private final static Logger LOG = LoggerFactory.getLogger(PageController.class);
+	// 使用代理方式生成工厂类
+	// org.springframework.beans.factory.support.AutowireUtils$ObjectFactoryDelegatingInvocationHandler
+	@Autowired
+	private HttpServletRequest request;
+
+	@RequestMapping("request-prop")
+	public ResponseEntity<String> testRequestProp() {
+		LOG.info(ToStringBuilder.reflectionToString(request));
+		LOG.info("hash code:{}", request.hashCode());
+		return ResponseEntity.ok(request.toString());
+	}
 
 	/**
 	 * 数据类型转换注入
@@ -54,6 +74,7 @@ public class PageController {
 
 		return brand;
 	}
+
 	@RequestMapping("get-map")
 	public Map<String, Object> getMap() {
 		Map<String, Object> map = new HashMap<>();
@@ -61,5 +82,16 @@ public class PageController {
 		map.put("date", new Date());
 		map.put("double", 1.879);
 		return map;
+	}
+
+	/**
+	 * 用于测试服务器的 URL转码是否配置好
+	 * 
+	 * @param str
+	 * @return
+	 */
+	@RequestMapping(value = "param-str", method = RequestMethod.GET)
+	public String getStringParam(String str) {
+		return str;
 	}
 }
