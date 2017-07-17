@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -91,7 +93,10 @@ public class PageController {
 	 * @return
 	 */
 	@RequestMapping(value = "param-str", method = RequestMethod.GET)
-	public String getStringParam(String str) {
+	public String getStringParam(String str, @RequestHeader("Accept-Language") String lang,
+			@CookieValue("b3log-latke") String user) {
+		LOG.info("Language:{}", lang);
+		LOG.info("User:{}", user);
 		return str;
 	}
 }
