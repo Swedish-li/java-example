@@ -9,6 +9,17 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
+/**
+ * 传统的 Java Bean 模式
+ * 
+ * 1、类在构造过程中可能处于不一致的状态（inconsistent state）
+ * 
+ * 2、阻止了类成为不可变类的可能性
+ * 
+ * 
+ * @author Swedish-li
+ *
+ */
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.document.AbstractXlsView;
 /**
  * Poi官方文档：http://poi.apache.org/spreadsheet/quick-guide.html
  * 
- * @author liruishi
+ * @author Swedish-li
  *
  */
 public class ExcelView extends AbstractXlsView {
@@ -82,7 +82,8 @@ public class ExcelView extends AbstractXlsView {
 		// if ((agent != null) && (-1 != agent.indexOf("Mozilla")))
 		// return MimeUtility.encodeText(filename, "UTF-8", "B");
 
-		// 火狐 Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:54.0) Gecko/20100101 Firefox/54.0
+		// 火狐 Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:54.0) Gecko/20100101
+		// Firefox/54.0
 		else if (agent.toUpperCase().indexOf("FIREFOX") != -1) {
 			name = new String(filename.getBytes("UTF-8"), "iso-8859-1");
 		}
