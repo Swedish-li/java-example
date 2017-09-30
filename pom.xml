@@ -19,16 +19,9 @@
 		<poi.version>3.15</poi.version>
 		<dbcp2.version>2.1.1</dbcp2.version>
 		<emoji-java.version>3.2.0</emoji-java.version>
+		<powermock.version>1.7.1</powermock.version>
 	</properties>
 
-	<repositories>
-		<!-- 远程库没有的jar包 -->
-		<repository>
-			<id>taocodeReleases</id>
-			<name>taocode nexus</name>
-			<url>http://mvnrepo.code.taobao.org/nexus/content/repositories/releases/</url>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -253,16 +246,24 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
 			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<version>${powermock.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

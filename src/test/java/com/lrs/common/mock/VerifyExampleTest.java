@@ -1,13 +1,24 @@
 package com.lrs.common.mock;
 
-import org.junit.Test;
-import org.mockito.InOrder;
-import org.mockito.Matchers;
-import org.mockito.exceptions.verification.NoInteractionsWanted;
-
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
+
+import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InOrder;
+import org.mockito.exceptions.verification.NoInteractionsWanted;
 
 public class VerifyExampleTest {
 	@Test
@@ -21,7 +32,7 @@ public class VerifyExampleTest {
 		test.getUniqueId();
 
 		// 方法调用校验
-		verify(test).test(Matchers.eq(1));
+		verify(test).test(ArgumentMatchers.eq(1));
 
 		// 调用次数校验
 		verify(test, times(2)).getUniqueId();
