@@ -22,6 +22,21 @@
 		<powermock.version>1.7.1</powermock.version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+
+
+	</dependencyManagement>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -43,17 +58,14 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
@@ -243,7 +255,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -266,6 +277,7 @@
 			<version>${powermock.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
