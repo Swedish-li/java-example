@@ -20,6 +20,8 @@
 		<dbcp2.version>2.1.1</dbcp2.version>
 		<emoji-java.version>3.2.0</emoji-java.version>
 		<powermock.version>1.7.1</powermock.version>
+		
+		<jsonpath.version>2.4.0</jsonpath.version>
 	</properties>
 
 	<dependencyManagement>
@@ -243,9 +245,17 @@
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path</artifactId>
-			<version>2.2.0</version>
+			<version>${jsonpath.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path-assert</artifactId>
+			<version>${jsonpath.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
