@@ -6,3 +6,5 @@
 /*.log
 /.tern-project
 /bin/
+
+/.idea/
