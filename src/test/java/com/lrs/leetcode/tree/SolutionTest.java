@@ -5,14 +5,26 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
- * binary tree preorder traversal
+ * binary tree traversal
  * <p>
  * Created by Swedish-li on 2018/3/26.
  */
 public class SolutionTest {
+
+    /*
+                 6
+               /  \
+             2     7
+           /  \     \
+          1    4     9
+              / \   /
+             3  5  8
+    */
 
     private TreeNode getRoot() {
         TreeNode root = new TreeNode(6);
@@ -72,20 +84,35 @@ public class SolutionTest {
     // 1,3,5,4,2,8,9,7,6
 
     @Test
-    public void recursivePost(){
+    public void recursivePost() {
         List<Integer> rs = PostorderSolution.recursiveTraversal(getRoot());
 
         System.out.println(rs);
 
-        assertTrue(Arrays.asList(1,3,5,4,2,8,9,7,6).equals(rs));
+        assertTrue(Arrays.asList(1, 3, 5, 4, 2, 8, 9, 7, 6).equals(rs));
     }
 
     @Test
-    public void itrativePost(){
+    public void itrativePost() {
         List<Integer> rs = PostorderSolution.iterativeTraversal(getRoot());
 
         System.out.println(rs);
 
-        assertTrue(Arrays.asList(1,3,5,4,2,8,9,7,6).equals(rs));
+        assertTrue(Arrays.asList(1, 3, 5, 4, 2, 8, 9, 7, 6).equals(rs));
+    }
+
+    @Test
+    public void topDownMaximumDeptTest() {
+        RecursiveSolution solution = new RecursiveSolution();
+
+        solution.maxiumDepth(getRoot(), 1);
+
+        assertThat(solution.getAnswer(), is(4));
+    }
+
+    @Test
+    public void bottomUpMaximumDepthTest() {
+        int depth = RecursiveSolution.maxiumDepth(getRoot());
+        assertThat(depth, is(4));
     }
 }
