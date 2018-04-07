@@ -26,6 +26,9 @@ CREATE TABLE `t_template` (
   UNIQUE KEY `status_key` (`status_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
+insert into t_template(id,status_key,template,last_modified,lang)
+    values(1,'key','名称：${name},信息:${msg}',now(),'zh_CN');
+
 
 CREATE TABLE `brand` (
 	/* bigint 10亿亿 */

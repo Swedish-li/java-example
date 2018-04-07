@@ -15,31 +15,39 @@ import freemarker.cache.TemplateLoader;
 
 @Component
 public class DatabaseTemplateloader implements TemplateLoader {
-	@Resource
-	TemplateMapper templateDao;
+    @Resource
+    TemplateMapper templateDao;
 
-	@Override
-	public Object findTemplateSource(String name) throws IOException {
-		int index = name.indexOf('_');
-		String[] args = { name.substring(0, index), name.substring(index + 1) };
-		return templateDao.queryByKey(args[0], args[1]);
-	}
+    private final static String DEFAULT_LANG = "zh_CN";
 
-	@Override
-	public long getLastModified(Object templateSource) {
-		return ((Template) templateSource).getLastModified().getTime();
-		// return 1;
-	}
+    @Override
+    public Object findTemplateSource(String name) throws IOException {
+        int index = name.indexOf('_');
+        String lang = DEFAULT_LANG;
+        String msg = name;
+        if (index > 0) {
+            lang = name.substring(index + 1);
+            msg = name.substring(0, index);
+        }
 
-	@Override
-	public Reader getReader(Object templateSource, String encoding) throws IOException {
-		return new StringReader(((Template) templateSource).getTemplate());
-	}
+        return templateDao.queryByKey(msg, lang);
+    }
 
-	@Override
-	public void closeTemplateSource(Object templateSource) throws IOException {
-		// 在从数据库中获取模板数据时，此处可以什么也不做
+    @Override
+    public long getLastModified(Object templateSource) {
+        return ((Template) templateSource).getLastModified().getTime();
+        // return 1;
+    }
 
-	}
+    @Override
+    public Reader getReader(Object templateSource, String encoding) throws IOException {
+        return new StringReader(((Template) templateSource).getTemplate());
+    }
+
+    @Override
+    public void closeTemplateSource(Object templateSource) throws IOException {
+        // 在从数据库中获取模板数据时，此处可以什么也不做
+
+    }
 
 }
