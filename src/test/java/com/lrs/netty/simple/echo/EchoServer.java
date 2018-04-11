@@ -10,44 +10,44 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class EchoServer {
-	private int port;
+    private int port;
 
-	public EchoServer(int port) {
-		this.port = port;
-	}
+    public EchoServer(int port) {
+        this.port = port;
+    }
 
-	public void run() throws InterruptedException {
-		// 通道
-		// 事件管理，调用 ChannelHandler
-		EventLoopGroup main = new NioEventLoopGroup();
-		EventLoopGroup child = new NioEventLoopGroup();
+    public static void main(String[] args) throws InterruptedException {
+        new EchoServer(8888).run();
+    }
 
-		try {
-			ServerBootstrap bootstrap = new ServerBootstrap();
+    public void run() throws InterruptedException {
+        // 通道
+        // 事件管理，调用 ChannelHandler
+        EventLoopGroup main = new NioEventLoopGroup();
+        EventLoopGroup child = new NioEventLoopGroup();
 
-			bootstrap.group(main, child)
-					.channel(NioServerSocketChannel.class)
-					.childHandler(new ChannelInitializer<SocketChannel>() {
+        try {
+            ServerBootstrap bootstrap = new ServerBootstrap();
 
-						@Override
-						protected void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new EchoServerHandler());
+            bootstrap.group(main, child)
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
 
-						}
-					})
-					.option(ChannelOption.SO_BACKLOG, 128)
-					.childOption(ChannelOption.SO_KEEPALIVE, true);
+                        @Override
+                        protected void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new EchoServerHandler());
 
-			ChannelFuture channelFuture = bootstrap.bind(port).sync();
-			channelFuture.channel().closeFuture().sync();
+                        }
+                    })
+                    .option(ChannelOption.SO_BACKLOG, 128)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-		} finally {
-			main.shutdownGracefully();
-			child.shutdownGracefully();
-		}
-	}
+            ChannelFuture channelFuture = bootstrap.bind(port).sync();
+            channelFuture.channel().closeFuture().sync();
 
-	public static void main(String[] args) throws InterruptedException {
-		new EchoServer(8888).run();
-	}
+        } finally {
+            main.shutdownGracefully();
+            child.shutdownGracefully();
+        }
+    }
 }

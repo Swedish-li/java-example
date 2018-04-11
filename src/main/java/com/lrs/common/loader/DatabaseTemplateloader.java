@@ -1,24 +1,20 @@
 package com.lrs.common.loader;
 
+import com.lrs.mapper.TemplateMapper;
+import com.lrs.model.Template;
+import freemarker.cache.TemplateLoader;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
-import com.lrs.mapper.TemplateMapper;
-import com.lrs.model.Template;
-
-import freemarker.cache.TemplateLoader;
-
 @Component
 public class DatabaseTemplateloader implements TemplateLoader {
+    private final static String DEFAULT_LANG = "zh_CN";
     @Resource
     TemplateMapper templateDao;
-
-    private final static String DEFAULT_LANG = "zh_CN";
 
     @Override
     public Object findTemplateSource(String name) throws IOException {

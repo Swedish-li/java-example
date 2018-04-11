@@ -11,48 +11,48 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class DiscardServer {
 
-	private int port;
+    private int port;
 
-	public DiscardServer(int port) {
-		this.port = port;
-	}
+    public DiscardServer(int port) {
+        this.port = port;
+    }
 
-	public void run() throws Exception {
-		// accepts an incoming connection
-		EventLoopGroup bossGroup = new NioEventLoopGroup();
-		// handles the traffic of the accepted connection once the boss accepts
-		// the connection and registers the accepted connection to the worker
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
+    public static void main(String[] args) throws Exception {
+        int port = 8888;
+        if (args.length > 0) {
+            port = Integer.parseInt(args[0]);
+        }
+        new DiscardServer(port).run();
+    }
 
-		try {
-			// 服务启动引导
-			ServerBootstrap serverBoot = new ServerBootstrap();
-			serverBoot.group(bossGroup, workerGroup)
-					.channel(NioServerSocketChannel.class)
-					.childHandler(new ChannelInitializer<SocketChannel>() {
+    public void run() throws Exception {
+        // accepts an incoming connection
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        // handles the traffic of the accepted connection once the boss accepts
+        // the connection and registers the accepted connection to the worker
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-						@Override
-						public void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new DiscardServerHandler());
-						}
-					})
-					.option(ChannelOption.SO_BACKLOG, 128)
-					.childOption(ChannelOption.SO_KEEPALIVE, true);
+        try {
+            // 服务启动引导
+            ServerBootstrap serverBoot = new ServerBootstrap();
+            serverBoot.group(bossGroup, workerGroup)
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
 
-			ChannelFuture future = serverBoot.bind(port).sync();
-			future.channel().closeFuture().sync();
-		} finally {
-			bossGroup.shutdownGracefully();
-			workerGroup.shutdownGracefully();
-		}
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new DiscardServerHandler());
+                        }
+                    })
+                    .option(ChannelOption.SO_BACKLOG, 128)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-	}
+            ChannelFuture future = serverBoot.bind(port).sync();
+            future.channel().closeFuture().sync();
+        } finally {
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        }
 
-	public static void main(String[] args) throws Exception {
-		int port = 8888;
-		if (args.length > 0) {
-			port = Integer.parseInt(args[0]);
-		}
-		new DiscardServer(port).run();
-	}
+    }
 }

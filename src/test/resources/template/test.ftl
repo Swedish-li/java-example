@@ -1,12 +1,12 @@
 <html>
 <head>
-<title>Welcome!</title>
+    <title>Welcome!</title>
 </head>
 <body>
 <#--freemarker 注解 -->
 
 <h1>Welcome ${user}!</h1>
 <p>Our latest product:
-<a href="${latestProduct.url}">${latestProduct.name}</a>!
+    <a href="${latestProduct.url}">${latestProduct.name}</a>!
 </body>
 </html>

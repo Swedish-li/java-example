@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MyClass {
 
-	@NonNull
-	@Getter
-	private Integer uniqueId;
+    @NonNull
+    @Getter
+    private Integer uniqueId;
 
-	public void test(int nu) {
-		System.out.println(nu);
-	}
+    public void test(int nu) {
+        System.out.println(nu);
+    }
 }

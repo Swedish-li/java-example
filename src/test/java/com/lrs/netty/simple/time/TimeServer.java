@@ -11,53 +11,51 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
  * Time protocol(RFC868)
- * 
- * 
- * @author Swedish-li
  *
+ * @author Swedish-li
  */
 public class TimeServer {
-	private int port;
+    private int port;
 
-	public TimeServer(int port) {
-		this.port = port;
-	}
+    public TimeServer(int port) {
+        this.port = port;
+    }
 
-	public void run() throws InterruptedException {
-		EventLoopGroup main = new NioEventLoopGroup();
-		EventLoopGroup child = new NioEventLoopGroup();
+    /**
+     * 在Linux上使用 rdate命令可以测试该服务,默认使用37端口
+     * <p>
+     * rdate -p <host>
+     */
+    public static void main(String[] args) throws InterruptedException {
+        new TimeServer(37).run();
+    }
 
-		try {
-			ServerBootstrap bootstrap = new ServerBootstrap();
+    public void run() throws InterruptedException {
+        EventLoopGroup main = new NioEventLoopGroup();
+        EventLoopGroup child = new NioEventLoopGroup();
 
-			bootstrap.group(main, child)
-					.channel(NioServerSocketChannel.class)
-					.childHandler(new ChannelInitializer<SocketChannel>() {
+        try {
+            ServerBootstrap bootstrap = new ServerBootstrap();
 
-						@Override
-						protected void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new TimeEncoder()).addLast(new TimeServerHandler());
+            bootstrap.group(main, child)
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
 
-						}
-					})
-					.option(ChannelOption.SO_BACKLOG, 128)
-					.childOption(ChannelOption.SO_KEEPALIVE, true);
+                        @Override
+                        protected void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new TimeEncoder()).addLast(new TimeServerHandler());
 
-			ChannelFuture channelFuture = bootstrap.bind(port).sync();
-			channelFuture.channel().closeFuture().sync();
+                        }
+                    })
+                    .option(ChannelOption.SO_BACKLOG, 128)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-		} finally {
-			main.shutdownGracefully();
-			child.shutdownGracefully();
-		}
-	}
+            ChannelFuture channelFuture = bootstrap.bind(port).sync();
+            channelFuture.channel().closeFuture().sync();
 
-	/**
-	 * 在Linux上使用 rdate命令可以测试该服务,默认使用37端口
-	 * 
-	 * rdate -p <host>
-	 */
-	public static void main(String[] args) throws InterruptedException {
-		new TimeServer(37).run();
-	}
+        } finally {
+            main.shutdownGracefully();
+            child.shutdownGracefully();
+        }
+    }
 }

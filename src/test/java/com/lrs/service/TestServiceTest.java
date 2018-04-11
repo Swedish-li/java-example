@@ -9,12 +9,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class TestServiceTest {
-	@Autowired
-	private TestService service;
+    @Autowired
+    private TestService service;
 
-	@Test
-	public void testTestTransaction() {
-		service.testTransaction();
-	}
+    @Test
+    public void testTestTransaction() {
+        service.testTransaction();
+    }
 
 }

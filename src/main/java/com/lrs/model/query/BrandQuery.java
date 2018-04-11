@@ -4,12 +4,11 @@ import lombok.Data;
 
 /**
  * 品牌查询条件
- * 
- * @author Swedish-li
  *
+ * @author Swedish-li
  */
 @Data
 public class BrandQuery {
-	private String name;
-	private Integer isDisplay;
+    private String name;
+    private Integer isDisplay;
 }

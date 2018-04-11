@@ -10,45 +10,45 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ StringUtils.class, ArrayUtils.class })
+@PrepareForTest({StringUtils.class, ArrayUtils.class})
 public class PowerMockTest {
 
-	@Test
-	public void testMockStaticMethod() {
-		PowerMockito.mockStatic(StringUtils.class, ArrayUtils.class);
+    @Test
+    public void testMockStaticMethod() {
+        PowerMockito.mockStatic(StringUtils.class, ArrayUtils.class);
 
-		Mockito.when(StringUtils.capitalize(Mockito.anyString()))
-				.thenReturn("capitalize");
+        Mockito.when(StringUtils.capitalize(Mockito.anyString()))
+                .thenReturn("capitalize");
 
-		char[] arr = "indexof".toCharArray();
+        char[] arr = "indexof".toCharArray();
 
-		// 两个参数必须都为Matcher
-		Mockito.when(ArrayUtils.indexOf(Mockito.eq(arr), Mockito.anyChar()))
-				.thenReturn(8);
+        // 两个参数必须都为Matcher
+        Mockito.when(ArrayUtils.indexOf(Mockito.eq(arr), Mockito.anyChar()))
+                .thenReturn(8);
 
-		Assert.assertThat(StringUtils.capitalize(""), equalTo("capitalize"));
+        Assert.assertThat(StringUtils.capitalize(""), equalTo("capitalize"));
 
-		Assert.assertThat(ArrayUtils.indexOf(arr, 's'), equalTo(8));
+        Assert.assertThat(ArrayUtils.indexOf(arr, 's'), equalTo(8));
 
-	}
+    }
 
-	// verify behavior
-	@Test
-	public void testVerifyStatic() {
+    // verify behavior
+    @Test
+    public void testVerifyStatic() {
 
-		PowerMockito.mockStatic(StringUtils.class);
+        PowerMockito.mockStatic(StringUtils.class);
 
-		PowerMockito.verifyStatic(StringUtils.class);
+        PowerMockito.verifyStatic(StringUtils.class);
 
-		//StringUtils.trim(Mockito.anyString());
+        //StringUtils.trim(Mockito.anyString());
 
-		MockTest.staticMethod();
-		PowerMockito.verifyStatic(StringUtils.class, Mockito.times(1));
-		
+        MockTest.staticMethod();
+        PowerMockito.verifyStatic(StringUtils.class, Mockito.times(1));
 
-	}
+
+    }
 
 }

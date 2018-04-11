@@ -8,9 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("excel")
 public class ExcelController {
-	
-	@GetMapping("export")
-	public ModelAndView exportExcel() {
-		return new ModelAndView("excelView");
-	}
+
+    @GetMapping("export")
+    public ModelAndView exportExcel() {
+        return new ModelAndView("excelView");
+    }
 }

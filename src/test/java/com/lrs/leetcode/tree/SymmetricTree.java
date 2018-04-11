@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class SymmetricTree {
 
     boolean isSymmetric(TreeNode root) {
-        if(root == null) return true;
+        if (root == null) return true;
         return isMirror(root.getLeft(), root.getRight());
     }
 
@@ -35,13 +35,11 @@ public class SymmetricTree {
     }
 
     /**
-     *
-          1
-         / \
-        2   2
-       / \ / \
-      3  4 4  3
-     *
+     * 1
+     * / \
+     * 2   2
+     * / \ / \
+     * 3  4 4  3
      */
     private TreeNode getSymmetricRoot() {
         TreeNode root = new TreeNode(1);
@@ -61,13 +59,13 @@ public class SymmetricTree {
     }
 
     /**
-     *    1
-         / \
-        2   2
-         \   \
-         3    3
+     * 1
+     * / \
+     * 2   2
+     * \   \
+     * 3    3
      */
-    private TreeNode getNotSymmetricRoot(){
+    private TreeNode getNotSymmetricRoot() {
         TreeNode root = new TreeNode(1);
         TreeNode left = new TreeNode(2);
         left.setRight(new TreeNode(3));
@@ -81,12 +79,12 @@ public class SymmetricTree {
     }
 
     @Test
-    public void testIsSymmetric(){
-        assertThat(true,is(isSymmetric(getSymmetricRoot())));
-        assertThat(true,is(isSymmetricIt(getSymmetricRoot())));
+    public void testIsSymmetric() {
+        assertThat(true, is(isSymmetric(getSymmetricRoot())));
+        assertThat(true, is(isSymmetricIt(getSymmetricRoot())));
 
-        assertThat(false,is(isSymmetric(getNotSymmetricRoot())));
-        assertThat(false,is(isSymmetricIt(getNotSymmetricRoot())));
+        assertThat(false, is(isSymmetric(getNotSymmetricRoot())));
+        assertThat(false, is(isSymmetricIt(getNotSymmetricRoot())));
     }
 
     boolean isSymmetricIt(TreeNode root) {

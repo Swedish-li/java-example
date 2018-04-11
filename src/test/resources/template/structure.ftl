@@ -45,18 +45,18 @@ ${int?int}
 <#-- 移除多余空白 -->
 <#compress>
 		<html>
-			<head>
-				<title> this is a title</title>
-			</head>
-			
-			<body>
-				<h1>
-					<h2>
-						<p>这个   是段落</p>
-					</h2>
-				</h1>
-			</body>
-		</html>
+        <head>
+            <title> this is a title</title>
+        </head>
+
+        <body>
+        <h1>
+            <h2>
+                <p>这个 是段落</p>
+            </h2>
+        </h1>
+        </body>
+        </html>
 </#compress>
 
 <#escape x as x?upper_case>
@@ -72,14 +72,14 @@ ${int?int}
 </#macro>
 <#-- escape命令的作用是在模板的解析时间而不是模板处理的时间 -->
 <#escape x as x?html>
-	<#macro m2>
+    <#macro m2>
 		m2 ： ${ex}
-	</#macro>>
-	<#noescape>
+    </#macro>>
+    <#noescape>
 		在此之间关闭转义：${ex}
-	</#noescape>
-	${ex}
-	<@m1 />
+    </#noescape>
+    ${ex}
+    <@m1 />
 </#escape>
 
 ${ex}

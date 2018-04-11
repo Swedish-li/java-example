@@ -9,6 +9,29 @@ public class RecursiveSolution {
 
     private int answer = 0;
 
+    // bottom-up
+    public static int maxiumDepth(TreeNode root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        int depth = 1;
+
+        TreeNode left = root.getLeft();
+        if (left != null) {
+            depth = maxiumDepth(left) + 1;
+        }
+
+        TreeNode right = root.getRight();
+        if (right != null) {
+            depth = Math.max(depth, maxiumDepth(right) + 1);
+        }
+
+        return depth;
+
+    }
+
     // top-down
     public void maxiumDepth(TreeNode root, int depth) {
         if (root == null) {
@@ -32,27 +55,5 @@ public class RecursiveSolution {
 
     public int getAnswer() {
         return answer;
-    }
-    // bottom-up
-    public static int maxiumDepth(TreeNode root) {
-
-        if (root == null) {
-            return 0;
-        }
-
-        int depth = 1;
-
-        TreeNode left = root.getLeft();
-        if (left != null) {
-            depth = maxiumDepth(left) + 1;
-        }
-
-        TreeNode right = root.getRight();
-        if (right != null) {
-            depth = Math.max(depth, maxiumDepth(right) + 1);
-        }
-
-        return depth;
-
     }
 }

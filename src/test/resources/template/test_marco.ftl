@@ -1,6 +1,6 @@
 <#macro greet>
 	<font size="+2">Hello Jackie</font>
-	<#include "inc.ftl">
+    <#include "inc.ftl">
 </#macro>
 <#-- 调用名称，参数 -->
 <#macro greet1 person>
@@ -15,10 +15,10 @@
 
 <#macro nest>
 	<table>
-		<tr>
+        <tr>
 			<#nested>
-		</tr>
-	</table>
+        </tr>
+    </table>
 </#macro>
 
 <@nest>
@@ -28,9 +28,9 @@
 <#-- 多次调用nest -->
 
 <#macro do_thrice>
-	<#nested>
-	<#nested>
-	<#nested>
+    <#nested>
+    <#nested>
+    <#nested>
 </#macro>
 
 <@do_thrice>
@@ -38,19 +38,19 @@
 </@do_thrice>
 
 <@nest>
-	<@do_thrice>
+    <@do_thrice>
 		do Something
-	</@do_thrice>
+    </@do_thrice>
 </@nest>
 
 
 <#macro repeat count>
-<#list 1..count as x>
-<#nested x, x/2, x==count>
-</#list>
+    <#list 1..count as x>
+        <#nested x, x/2, x==count>
+    </#list>
 </#macro>
 
 
 <@repeat count=4 ; c, halfc, last>
-${c}. ${halfc}<#if last> Last!</#if>
+    ${c}. ${halfc}<#if last> Last!</#if>
 </@repeat>

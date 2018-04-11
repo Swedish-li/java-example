@@ -5,25 +5,24 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * TCP/IP协议采用流式传输（stream-based transport）,传输的数据未字节队列
- * 
- * @author Swedish-li
  *
+ * @author Swedish-li
  */
 
 public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
-	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		UnixTime time = (UnixTime) msg;
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        UnixTime time = (UnixTime) msg;
 
-		System.out.println(time);
+        System.out.println(time);
 
-	}
+    }
 
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		cause.printStackTrace();
-		ctx.close();
-	}
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        ctx.close();
+    }
 
 }

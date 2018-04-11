@@ -4,10 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class MockTest {
 
-	public static void staticMethod() {
+    public static void staticMethod() {
 
-		String str = StringUtils.trim(" trim ");
+        String str = StringUtils.trim(" trim ");
 
-		System.out.println(str);
-	}
+        System.out.println(str);
+    }
 }
