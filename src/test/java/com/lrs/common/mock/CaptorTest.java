@@ -60,7 +60,8 @@ public class CaptorTest {
 
         // 验证状态与结果
         verify(mockDummyCollaborator, times(1)).doSomethingAsynchronously(
-                any(DummyCallback.class));
+                any(DummyCallback.class)
+        );
         assertThat(dummyCaller.getResult(), is(equalTo(results)));
     }
 
