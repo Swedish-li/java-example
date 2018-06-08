@@ -1,4 +1,4 @@
-package com.lrs.netty;
+package com.lrs.netty.simple.chat;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -44,8 +44,9 @@ public class SimpleChatClient {
             boolean exit = false;
             while (!exit) {
                 String str = sc.next();
-                System.out.println("==>str=>" + str);
-                channel.writeAndFlush(str + "\r\t");
+                System.out.println("Tom:" + str);
+                channel.writeAndFlush(str);
+
                 if ("exit".equalsIgnoreCase(str)) {
                     exit = true;
                     channel.close();

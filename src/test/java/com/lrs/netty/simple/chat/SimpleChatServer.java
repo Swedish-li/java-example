@@ -1,4 +1,4 @@
-package com.lrs.netty;
+package com.lrs.netty.simple.chat;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

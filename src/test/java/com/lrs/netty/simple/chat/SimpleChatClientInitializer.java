@@ -1,4 +1,4 @@
-package com.lrs.netty;
+package com.lrs.netty.simple.chat;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
