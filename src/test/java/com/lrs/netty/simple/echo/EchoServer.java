@@ -11,6 +11,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class EchoServer {
     private int port;
+    // 使用单实例
+    private EchoServerHandler echoServerHandler = new EchoServerHandler();
 
     public EchoServer(int port) {
         this.port = port;
@@ -35,7 +37,7 @@ public class EchoServer {
 
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new EchoServerHandler());
+                            ch.pipeline().addLast(echoServerHandler);
 
                         }
                     })
