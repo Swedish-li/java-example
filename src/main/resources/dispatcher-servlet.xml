@@ -73,8 +73,8 @@
         <property name="fallbackToSystemLocale" value="true"/>
         <property name="basenames">
             <list>
-                <value>classpath:bundle/messages</value>
-                <value>classpath:org/hibernate/validator/ValidationMessages</value>
+                <value>bundle.messages</value>
+                <value>bundle.ValidationMessages</value>
             </list>
         </property>
     </bean>

@@ -14,7 +14,6 @@ public class ValidatorController {
 
     @RequestMapping("valid-user")
     public String validUserVo(@Valid @ModelAttribute UserVo user, BindingResult rs) {
-        System.out.println(rs);
         return rs.toString();
     }
 

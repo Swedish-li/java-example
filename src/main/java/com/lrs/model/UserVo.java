@@ -4,15 +4,14 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-//hibernate validator配置国际化支持时直接输出键值
-//问题链接：https://www.oschina.net/question/1243908_2146076
 @Data
 @Accessors(chain = true)
 public class UserVo {
     @Size(min = 2, max = 6, message = "{size.u.name.len}")
-    // @Size(min=2,max = 6)
+    @NotNull(message = "{name.required}")
     private String name;
     @Max(value = 1, message = "{max.sex}")
     // @Max(value=1)
