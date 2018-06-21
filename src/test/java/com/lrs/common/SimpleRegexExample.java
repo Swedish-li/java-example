@@ -134,7 +134,7 @@ public class SimpleRegexExample {
     @Test
     public void parseAnnotation()
             throws ClassNotFoundException, NoSuchFieldException, SecurityException, NoSuchMethodException {
-        Class<?> clazz = Class.forName("com.lrs.regex.SimpleRegexExample$App");
+        Class<?> clazz = Class.forName("com.lrs.common.SimpleRegexExample$App");
         MethodInfo methodInfo = clazz.getAnnotation(MethodInfo.class);
         // 类上的注解
         if (methodInfo != null) {
