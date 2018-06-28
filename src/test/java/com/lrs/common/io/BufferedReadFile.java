@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.*;
 
+import static java.lang.System.out;
+
 public class BufferedReadFile {
     static String readFile(String fileName) throws IOException {
         try (BufferedReader in = new BufferedReader(new FileReader(fileName))) {
@@ -22,7 +24,7 @@ public class BufferedReadFile {
 
     @Test
     public void testReadFile() throws IOException {
-        System.out.println(readFile(getClassPath() + "table.sql"));
+        out.println(readFile(getClassPath() + "table.sql"));
     }
 
     @Test
@@ -31,7 +33,7 @@ public class BufferedReadFile {
         try (StringReader stringReader = new StringReader(readFile(getClassPath() + "template/test.ftl"))) {
             int c;
             while ((c = stringReader.read()) != -1) {
-                System.out.print((char) c);
+                out.print((char) c);
             }
         }
 
@@ -45,10 +47,10 @@ public class BufferedReadFile {
                         readFile(getClassPath() + "message_zh_CN.properties").getBytes()))
         ) {
             while (true) {
-                System.out.print((char) in.readByte());
+                out.print((char) in.readByte());
             }
         } catch (EOFException err) {
-            System.out.println("End of Stream");
+            out.println("End of Stream");
         }
 
         try (DataInputStream in1 = new DataInputStream(
@@ -58,8 +60,21 @@ public class BufferedReadFile {
         )) {
             while (in1.available() != 0) {
                 // 以字节为单位，会产生乱码
-                System.out.print((char) in1.readByte());
+                out.print((char) in1.readByte());
             }
+        }
+    }
+
+    @Test
+    public void testStreamString() throws IOException {
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(getClassPath() + "table.sql")
+        )) {
+            reader.lines()
+                    .filter(str -> str.contains("TABLE"))
+                    .map(str -> str.replace("CREATE TABLE `", "")
+                            .replace("` (", ""))
+                    .forEach(System.out::println);
         }
     }
 }
